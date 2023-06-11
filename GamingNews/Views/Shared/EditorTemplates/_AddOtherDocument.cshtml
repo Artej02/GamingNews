@@ -1,0 +1,10 @@
+﻿@using Kendo.Mvc.UI
+
+@(Html.Kendo().Upload()
+    .Name("file")
+    .Async(a => a
+        .Save("SaveFile", "Documents")
+        .AutoUpload(true)
+    )
+    .Multiple(true)
+ )

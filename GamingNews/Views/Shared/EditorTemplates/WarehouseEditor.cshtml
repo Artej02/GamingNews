@@ -1,0 +1,14 @@
+﻿@model int?
+@using Kendo.Mvc.UI
+
+@(Html.Kendo().DropDownTreeFor(m => m)
+        .ValuePrimitive(true)
+        .DataValueField("Value")
+        .DataTextField("Text")
+        .LoadOnDemand(false)
+        .DataSource(d => d
+           .Read(r => r.Action("ReadWarehouses", "Assets"))
+           .Model(m => m.Id("Value").HasChildren("HasChildren"))
+        )
+        .Events(e => e.DataBound("onDataBound"))
+)

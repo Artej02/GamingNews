@@ -1,0 +1,214 @@
+﻿@using Kendo.Mvc.UI;
+@using GamingWeb.Custom.Models;
+@model GamingWeb.Custom.Models.Announcements.Announcement;
+@{
+    var language = new GamingWeb.Custom.Helpers.LanguageHelper(Context);
+    var curLang = language.Current();
+    Layout = null;
+}
+
+@*<script>
+    function sync_handler(e) {
+        console.log('e');
+        e.sender.read();
+    }
+    function success(e) {
+        var filePath = e.response.FileUrl;
+
+        $("#Photo").val(filePath).trigger("change");
+    }
+</script>*@
+
+<script>
+    function success(e) {
+        var filePath = e.response.FileUrl;
+        var existingURLs = $("#fileInput").val()
+        if (existingURLs == null || existingURLs == "") {
+            existingURLs = "";
+        }
+        var final = existingURLs + ';' + filePath;
+        console.log(final);
+
+        $("#fileInput").val(final).trigger("change");
+        //console.log(existingURLs);
+    }
+</script>
+
+
+
+
+<form asp-action="CreateUpdateAnnouncement" method="post" id="articleFormID">
+    <input asp-for="Id" hidden/>
+    <div class="row mt-2 pb-3">
+        <div class="col-3 d-flex">
+            <label style="font-weight: 500; font-size: 1rem; margin: 0; align-self: center;">@language.Get("TitleSq")</label>
+        </div>
+
+        <div class="col">
+            @(Html.Kendo().TextBoxFor(m => m.TitleSq)
+                .HtmlAttributes(new { @class = "w-100 form-control", style = "height:40px", required = "required", validationmessage = language.Get("PleaseFillOutThisField") }))
+        </div>
+    </div>
+
+    <div id="example" class="demo-section wide editor pt-4 pb-6">
+        <div class="pb-4">
+            <label style="font-weight: 500; font-size: 1rem; margin: 0; align-self: center;">@language.Get("DescriptionSq")</label>
+        </div>
+
+        @(Html.Kendo().EditorFor(m => m.DescriptionSq)
+            .HtmlAttributes(new { @class = "form-control", style = "width: 100%; height:440px ", aria_label = "editor", required = "required", validationmessage = language.Get("PleaseFillOutThisField") })
+            .StyleSheets(css => css
+            .Add(Url.Content("~/Content/web/Editor/editorStyles.css"))
+            )
+            .Tools(tools => tools
+            .Clear()
+            .Bold().Italic().Underline()
+            .JustifyLeft().JustifyCenter().JustifyRight()
+            .InsertUnorderedList().InsertOrderedList()
+            .Outdent().Indent()
+            .CreateLink().Unlink()
+            )
+            )
+    </div>
+
+
+    <div class="row mt-2 pb-3 pt-5">
+        <div class="col-3 d-flex">
+            <label style="font-weight: 500; font-size: 1rem; margin: 0; align-self: center;">@language.Get("TitleEn")</label>
+        </div>
+
+        <div class="col">
+            @(Html.Kendo().TextBoxFor(m => m.TitleEn)
+                .HtmlAttributes(new { @class = "w-100 form-control", style = "height:40px", required = "required", validationmessage = language.Get("PleaseFillOutThisField") }))
+            <span class="text-danger"></span>
+        </div>
+    </div>
+
+    <div id="example" class="demo-section wide editor pt-4 pb-6">
+        <div class="pb-4">
+            <label style="font-weight: 500; font-size: 1rem; margin: 0; align-self: center;">@language.Get("DescriptionEn")</label>
+        </div>
+
+        @(Html.Kendo().EditorFor(m => m.DescriptionEn)
+            .HtmlAttributes(new { @class = "form-control", style = "width: 100%; height:440px", aria_label = "editor", required = "required", validationmessage = language.Get("PleaseFillOutThisField") })
+            .StyleSheets(css => css
+            .Add(Url.Content("~/Content/web/Editor/editorStyles.css"))
+            )
+            .Tools(tools => tools
+            .Clear()
+            .Bold().Italic().Underline()
+            .JustifyLeft().JustifyCenter().JustifyRight()
+            .InsertUnorderedList().InsertOrderedList()
+            .Outdent().Indent()
+            .CreateLink().Unlink()
+
+            )
+            )
+    </div>
+
+
+
+    <div class="row mt-2 pb-3 pt-5">
+        <div class="col-3 d-flex">
+            <label style="font-weight: 500; font-size: 1rem; margin: 0; align-self: center;">@language.Get("TitleSr")</label>
+        </div>
+        <div class="col">
+            @(Html.Kendo().TextBoxFor(m => m.TitleSr)
+                .HtmlAttributes(new { @class = "w-100 form-control", style = "height:40px", required = "required", validationmessage = language.Get("PleaseFillOutThisField") }))
+            <span class="text-danger"></span>
+        </div>
+    </div>
+
+    <div id="example" class="demo-section wide editor pt-4 pb-6">
+        <div class="pb-4">
+            <label style="font-weight: 500; font-size: 1rem; margin: 0; align-self: center;">@language.Get("DescriptionSr")</label>
+        </div>
+
+        @(Html.Kendo().EditorFor(m => m.DescriptionSr)
+            .HtmlAttributes(new { @class = "form-control", style = "width: 100%; height:440px", aria_label = "editor", required = "required", validationmessage = language.Get("PleaseFillOutThisField") })
+            .StyleSheets(css => css
+            .Add(Url.Content("~/Content/web/Editor/editorStyles.css"))
+            )
+            .Tools(tools => tools
+            .Clear()
+            .Bold().Italic().Underline()
+            .JustifyLeft().JustifyCenter().JustifyRight()
+            .InsertUnorderedList().InsertOrderedList()
+            .Outdent().Indent()
+            .CreateLink().Unlink()
+
+            )
+            )
+    </div>
+
+
+    <div class="row d-flex pt-6">
+
+
+        <div class="form-group col-6">
+            <label style="font-weight: 500; font-size: 1rem; margin: 0; align-self: center;">@language.Get("Announcement Date")</label>
+
+            @(Html.Kendo().DateTimePickerFor(m => m.DisplayDate)
+                .Format("dd/MM/yyyy")
+                .HtmlAttributes(new { @class = "form-control w-100", required = "required", validationmessage = language.Get("PleaseFillOutThisField") })
+                )
+        </div>
+        <div class="form-group col-6">
+            <label for="formGroupExampleInput2">@language.Get("File")</label>
+            @*@(Html.Kendo().Upload()
+            .Name("FileUrl")
+            .Multiple(false)
+            .Async(a => a
+            .Save("SaveFile", "News")
+            .AutoUpload(true)
+            )
+            .Multiple(true)
+            .HtmlAttributes(new {@class = "form-control", accept = ".jpg,.png",  validationmessage = language.Get("PleaseFillOutThisField") })
+            .Events( e => e.Success("success"))
+            )*@
+            @(Html.Kendo().Upload()
+                .Name("FileUrl")
+                .Async(a => a
+                .Save("SaveFile", "Reports")
+                .AutoUpload(true)
+                )
+                .Multiple(true)
+                .HtmlAttributes(new { @class = "form-control", accept = ".pdf" })
+                .Events(e => e.Success("success"))
+                )
+
+            <input type="hidden" asp-for="FileUrl" id="fileInput" required="required" validationmessage="@language.Get("PleaseFillOutThisField")" />
+        </div>
+    </div>
+
+    <input type="button" style="right: -12vw; position: relative; background-color:royalblue;" value="Submit" onclick="submitForm();" class="btn btn-primary w-35 mt-6" />
+</form>
+
+
+<script>
+    function submitForm() {
+        var validator = $("#articleFormID").kendoValidator(
+            {
+                messages: { required: '@Html.Raw(language.Get("PleaseFillOutThisField"))' }
+            }).data("kendoValidator");
+
+        Swal.fire({
+            title: 'Dëshironi ta ruani shpalljen?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '@language.Get("Yes")',
+            cancelButtonText: '@language.Get("Cancel")'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $('#articleFormID').submit();
+            }
+        })
+    }
+</script>
+<style>
+    .swal2-container {
+        z-index: 10004;
+    }
+</style>

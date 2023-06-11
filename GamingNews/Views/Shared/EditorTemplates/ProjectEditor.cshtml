@@ -1,0 +1,24 @@
+﻿@using Kendo.Mvc.UI
+@using System.Collections
+@model System.Int32
+
+@(Html.Kendo().DropDownList()
+    .BindTo((IEnumerable)ViewBag.Projects)
+    .OptionLabel(" - Select Project - ")
+    .DataValueField("Key")
+    .DataTextField("Value")
+    .FooterTemplate(
+            "<div class='w-100 text-center'><button class='btn btn-info w-100' onclick='addProject()'>Add Project</button></div>")
+    .Name("ProjectId"))
+
+
+<script>
+    function addProject(e) {
+        console.log("Button Clicked");
+        getEmpty('@Url.Action("UserDetails","User")' + '?idUser=' + this.dataItem($(e.currentTarget).closest("tr")).ID).done(function (result) {
+            let detailsWindow = $("#userDetails").data("kendoWindow");
+            detailsWindow.content(result).open();
+
+        });
+    }
+</script>

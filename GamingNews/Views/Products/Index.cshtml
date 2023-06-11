@@ -1,0 +1,126 @@
+﻿@using Kendo.Mvc.UI
+@using GamingWeb.Custom.Helpers
+@using GamingWeb.Custom.Models
+@{
+    var language = new LanguageHelper(Context);
+    //int departmentsAccess = new AuthorizeHelper(Context).GetPrivilegeLevel((int)Views.Departments);
+}
+
+<script>
+    function sync_handler(e) {
+        e.sender.read();
+    }
+</script>
+<style>
+    div.k-edit-form-container {
+        width: 100% !important;
+    }
+
+    div.k-widget.k-window.k-display-inline-flex {
+        left: 0px !important;
+    }
+</style>
+<div class="page-header">
+    <div>
+        <h2 class="main-content-title tx-24 mg-b-5">@language.Get("Products")</h2>
+
+    </div>
+</div>
+
+@(Html.Kendo().TreeList<GamingWeb.Custom.Models.Product.ProductParentViewModel>()
+    .Name("country_city_settings_treelist")
+    .Columns(columns =>
+    {
+        columns.Add().Field(e => e.Id).Hidden(true);
+        columns.Add().Field(e => e.Code).Width(200);
+        columns.Add().Field(e => e.Description).Width(250);
+        columns.Add().Field(e => e.Percentage).Title("Dogana").Width(150);
+        columns.Add().Field(e => e.CEFTA).Width(150);
+        columns.Add().Field(e => e.MSA).Width(150);
+        columns.Add().Field(e => e.TRMTL).Width(150);
+        columns.Add().Field(e => e.TVSH).Width(150);
+        columns.Add().Field(e => e.Excise).Width(150);
+    })
+    .Filterable()
+    .Sortable()
+    .Resizable(true)
+    .Editable(e => e.Mode("inline"))
+    .HtmlAttributes(new { style = "height:900px;width:1200px" })
+    .DataSource(dataSource => dataSource
+        .Events(e => e.Sync("sync_handler"))
+        .Read(read => read.Action("GetAllProducts", "Products"))
+        .ServerOperation(true)
+        .Model(m =>
+        {
+            m.Id(f => f.Id);
+            m.ParentId(f => f.ParentId);
+            m.Expanded(true);
+            m.Field(f => f.Code);
+            m.Field(f => f.Description);
+            m.Field(f => f.Percentage);
+            m.Field(f => f.CEFTA);
+            m.Field(f => f.MSA);
+            m.Field(f => f.TRMTL);
+            m.Field(f => f.TVSH);
+            m.Field(f => f.Excise);
+            m.Expanded(false);
+        })
+    )
+    .Height(900)
+)
+<br />
+<br />
+<div hidden>
+@(Html.Kendo().Grid<GamingWeb.Custom.Models.Product.ProductParentViewModel>()
+        .Name("grid")
+        .Width(1500)
+        .Columns(columns =>
+        {
+            columns.Bound(e => e.Id).Hidden();
+            columns.Bound(e => e.Code).Width(50).Title("Kodi i mallit");
+            columns.Bound(e => e.Description).Width(50).Title("Përshkrimi");
+
+        })
+        .Sortable()
+        .Pageable()
+        .Scrollable()
+        .ClientDetailTemplateId("template")
+        .HtmlAttributes(new { style = "height:600px;" })
+        .DataSource(dataSource => dataSource
+            .Ajax()
+            .PageSize(6)
+            .Read(read => read.Action("Read_Products", "Products"))
+        )
+        .Events(events => events.DataBound("dataBound"))
+)
+</div>
+
+<script id="template" type="text/kendo-tmpl">
+    @(Html.Kendo().Grid<GamingWeb.Custom.Models.Product.ProductChildViewModel>()
+                .Name("grid_#=Id#") // template expression, to be evaluated in the master context
+                .Columns(columns =>
+                {
+                    columns.Bound(o => o.Code).Width(150).Title("Kodi i mallit");
+                    columns.Bound(o => o.Description).Width(130).Title("Përshkrimi");
+                    columns.Bound(o => o.Percentage).Width(130).Title("Dogana(%)");
+                    columns.Bound(o => o.CEFTA).Width(130);
+                    columns.Bound(o => o.MSA).Width(130);
+                    columns.Bound(o => o.TRMTL).Width(130);
+                    columns.Bound(o => o.TVSH).Width(130);
+                    columns.Bound(o => o.Excise).Width(130).Title("Akciza");
+                })
+                .DataSource(dataSource => dataSource
+                    .Ajax()
+                    .PageSize(10)
+                    .Read(read => read.Action("Read_ChildProducts", "Products", new { ParentId = "#=Id#" }))
+                )
+                .Pageable()
+                .Sortable()
+                .ToClientTemplate()
+        )
+</script>
+<script>
+    function dataBound() {
+        this.expandRow(this.tbody.find("tr.k-master-row").first());
+    }
+</script>

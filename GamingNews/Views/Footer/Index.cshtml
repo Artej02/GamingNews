@@ -1,0 +1,202 @@
+﻿@model GamingWeb.Custom.Models.Footer.Footer
+@using Kendo.Mvc.UI;
+@using GamingWeb.Custom.Models;
+@using GamingWeb.Custom.Helpers;
+@{
+    //ViewData["Title"] = "Index";
+    var language = new GamingWeb.Custom.Helpers.LanguageHelper(Context);
+
+    //int footerAccess = new AuthorizeHelper(Context).GetPrivilegeLevel((int)Views.Footer);
+}
+
+<script>
+    function sync_handler(e) {
+        e.sender.read();
+    }
+</script>
+
+<form asp-action="UpdateFooter" method="post">
+
+    <div class="form-group">
+        <input asp-for="Id" type="hidden" />
+    </div>
+
+    <div class="row d-flex">
+
+        <div class="form-group col-6">
+            <label for="formGroupExampleInput">First Title Sq</label>
+            <input asp-for="FirstTitleSq" type="text" class="form-control">
+            @*<span asp-validation-for="business_number" class="text-danger"></span>*@
+        </div>
+
+        <div class="form-group col-6">
+            <label for="formGroupExampleInput2">First Content Sq</label>
+            <textarea asp-for="FirstContentSq" type="text" class="form-control"></textarea>
+            @*<span asp-validation-for="phone" class="text-danger"></span>*@
+        </div>
+
+        <div class="form-group col-6">
+            <label for="formGroupExampleInput2">First Title En</label>
+            <input asp-for="FirstTitleEn" type="text" class="form-control">
+            @*<span asp-validation-for="fiscal_number" class="text-danger"></span>*@
+        </div>
+
+        <div class="form-group col-6">
+            <label for="formGroupExampleInput2">First Content En</label>
+            <textarea asp-for="FirstContentEn" type="text" class="form-control"></textarea>
+            @*<span asp-validation-for="email" class="text-danger"></span>*@
+        </div>
+
+        <div class="form-group col-6">
+            <label for="formGroupExampleInput2">First Title Sr</label>
+            <input asp-for="FirstTitleSr" type="text" class="form-control">
+            @*<span asp-validation-for="address" class="text-danger"></span>*@
+        </div>
+        
+
+        <div class="form-group col-6">
+            <label for="formGroupExampleInput2">First Content Sr</label>
+            <textarea asp-for="FirstContentSr" type="text" class="form-control"></textarea>
+            @*<span asp-validation-for="email" class="text-danger"></span>*@
+        </div>
+
+
+
+
+        <div class="form-group col-6">
+            <label for="formGroupExampleInput">Second Title Sq</label>
+            <input asp-for="SecondTitleSq" type="text" class="form-control">
+            @*<span asp-validation-for="business_number" class="text-danger"></span>*@
+        </div>
+
+        <div class="form-group col-6">
+            <label for="formGroupExampleInput2">Second Content Sq</label>
+            <textarea asp-for="SecondContentSq" type="text" class="form-control"></textarea>
+            @*<span asp-validation-for="phone" class="text-danger"></span>*@
+        </div>
+
+        <div class="form-group col-6">
+            <label for="formGroupExampleInput2">Second Title En</label>
+            <input asp-for="SecondTitleEn" type="text" class="form-control">
+            @*<span asp-validation-for="fiscal_number" class="text-danger"></span>*@
+        </div>
+
+        <div class="form-group col-6">
+            <label for="formGroupExampleInput2">Second Content En</label>
+            <textarea asp-for="SecondContentEn" type="text" class="form-control"></textarea>
+            @*<span asp-validation-for="email" class="text-danger"></span>*@
+        </div>
+
+        <div class="form-group col-6">
+            <label for="formGroupExampleInput2">Second Title Sr</label>
+            <input asp-for="SecondTitleSq" type="text" class="form-control">
+            @*<span asp-validation-for="address" class="text-danger"></span>*@
+        </div>
+
+        <div class="form-group col-6">
+            <label for="formGroupExampleInput2">Second Content Sr</label>
+            <textarea asp-for="SecondContentSr" type="text" class="form-control"></textarea>
+            @*<span asp-validation-for="email" class="text-danger"></span>*@
+        </div>
+
+
+
+
+
+        <div class="form-group col-6">
+            <label for="formGroupExampleInput">Third Title Sq</label>
+            <input asp-for="ThirdTitleSq" type="text" class="form-control">
+            @*<span asp-validation-for="business_number" class="text-danger"></span>*@
+        </div>
+
+        <div class="form-group col-6">
+            <label for="formGroupExampleInput2">Third Content Sq</label>
+            <textarea asp-for="ThirdContentSq" type="text" class="form-control"></textarea>
+            @*<span asp-validation-for="phone" class="text-danger"></span>*@
+        </div>
+
+        <div class="form-group col-6">
+            <label for="formGroupExampleInput2">Third Title En</label>
+            <input asp-for="ThirdTitleEn" type="text" class="form-control">
+            @*<span asp-validation-for="fiscal_number" class="text-danger"></span>*@
+        </div>
+
+        <div class="form-group col-6">
+            <label for="formGroupExampleInput2">Third Content En</label>
+            <textarea asp-for="ThirdContentEn" type="text" class="form-control"></textarea>
+            @*<span asp-validation-for="email" class="text-danger"></span>*@
+        </div>
+
+        <div class="form-group col-6">
+            <label for="formGroupExampleInput2">Third Title Sr</label>
+            <input asp-for="ThirdTitleSr" type="text" class="form-control">
+            @*<span asp-validation-for="address" class="text-danger"></span>*@
+        </div>
+
+        <div class="form-group col-6">
+            <label for="formGroupExampleInput2">Third Content Sr</label>
+            <textarea asp-for="ThirdContentSr" type="text" class="form-control"></textarea>
+            @*<span asp-validation-for="email" class="text-danger"></span>*@
+        </div>
+
+
+        @*<label>@languageHelper.Get("FooterToolsLinks")</label>
+
+        <div id="footerLinksGrid" class="px-3">*@
+
+            @*@(Html.Kendo().Grid<GamingWeb.Custom.Models.Footer.FooterLinks>()
+                .Name("gridFooterLinks")
+                .Height(500)
+                .Columns(columns =>
+                {
+                    columns.Bound(p => p.Id).Hidden(true);
+                    columns.Bound(p => p.ToolNameSQ).Title(language.Get("TitleSq"));
+                    columns.Bound(p => p.ToolNameEN).Title(language.Get("TitleEn"));
+                    columns.Bound(p => p.ToolNameSR).Title(language.Get("TitleSr"));
+                    columns.Bound(p => p.URL).Title(language.Get("URL"));
+
+                    //if (footerAccess == (int)RoleAccessLevels.FullAccess)
+                    //{
+                        columns.Command(c =>
+                        {
+                            c.Edit().Text(language.Get("Edit")).UpdateText(language.Get("Save")).CancelText(language.Get("Cancel"));
+                            c.Destroy().Text(language.Get("Delete")).HtmlAttributes(new { @class = "deleteButtonCustom" });
+                        });
+                    //}
+                })
+                .ToolBar(tools =>
+                {
+                    //if (footerAccess == (int)RoleAccessLevels.FullAccess)
+                    //{
+                        tools.Create().Text(language.Get("Add"));
+                    //}
+                })
+                .Editable(editable => editable.Mode(GridEditMode.InLine))
+                .Pageable(pager => pager.Refresh(true).PageSizes(new[] { 10, 20, 30 }).Refresh(true))
+                .Sortable()
+                .Scrollable()
+                .Filterable()
+                .Resizable(resize => resize.Columns(true))
+                .DataSource(dataSource => dataSource
+                .Ajax()
+                .Events(e => e.Sync("sync_handler"))
+                .PageSize(20)
+                .Model(model =>
+                {
+                    model.Id(p => p.Id);
+
+                })
+                .Read(read => read.Action("GetFooterLinks", "Footer"))
+                .Update(update => update.Action("CreateUpdateFooterLink", "Footer"))
+                .Create(create => create.Action("CreateUpdateFooterLink", "Footer"))
+                .Destroy(destroy => destroy.Action("DeleteFooterLink", "Footer"))
+                )
+                )
+        </div*@
+
+        @*if (footerAccess == (int)RoleAccessLevels.FullAccess)
+        {*@
+            <button type="submit" class="btn btn-primary w-30 mt-4" style="margin-left: auto; margin-right: 0.75rem; background-color: royalblue;">@language.Get("Save")</button>
+        @*}*@
+    </div>
+</form>

@@ -1,0 +1,30 @@
+﻿@model string
+@using Kendo.Mvc.UI
+
+@Html.HiddenFor(m => m)
+@Html.ValidationMessageFor(m => m)
+
+<script>
+    function success(e) {
+        var imagePath = e.response.ResumeFileUrl;
+
+        $("#ResumeFileUrl").val(imagePath).trigger("change");
+	}
+
+	function error(e) {
+		console.log("error", e);
+
+    }
+</script>
+
+@(Html.Kendo().Upload()
+    .Name("file")
+    .Multiple(false)
+    .Async(a => a
+        .Save("SaveApplicantFile", "JobPosition")
+        .AutoUpload(true)
+    )
+    .Events(e => e.Success("success"))
+    .Events(e => e.Error("error"))
+)
+

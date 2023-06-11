@@ -1,0 +1,136 @@
+﻿@using Kendo.Mvc.UI
+@using GamingWeb.Custom.Helpers
+@using GamingWeb.Custom.Models
+@model GamingWeb.Custom.Models.Documents.Document;
+@{
+    var language = new LanguageHelper(Context);
+    //int departmentsAccess = new AuthorizeHelper(Context).GetPrivilegeLevel((int)Views.Departments);
+}
+
+<script>
+    function sync_handler(e) {
+        e.sender.read();
+    }
+
+    function onShow(e) {
+        if (e.sender.getNotifications().length == 1) {
+            var element = e.element.parent(),
+                eWidth = element.width(),
+                eHeight = element.height(),
+                wWidth = $(window).width(),
+                wHeight = $(window).height(),
+                newTop, newLeft;
+            newLeft = Math.floor(wWidth / 2 - eWidth / 2);
+            newTop = 100;
+            e.element.parent().css({ top: newTop, left: newLeft });
+        }
+    }
+
+    function onError(e, status) {
+        var notificationWidget = $("#notification").data("kendoNotification");
+        if (e.status == "customerror") {
+            notificationWidget.show(e.errors, "error");
+        }
+        else {
+            notificationWidget.show("Generic server error.", "error");
+        }
+    }
+
+    function deleteFile(e) {
+        var notificationWidget = $("#notification").data("kendoNotification");
+
+        getEmpty('@Url.Action("DeleteDocument", "Documents")' + "?fileName=" + this.dataItem($(e.currentTarget).closest("tr")).Name).done(function (result) {
+            if (result) {
+                Swal.fire("Document deleted successfully.")
+                $('#gridDocuments').data('kendoGrid').dataSource.read();
+            }
+            else {
+                Swal.fire("Error occurred!")
+            }
+        });
+    }
+
+    function getFileUrl(e) {
+        var notificationWidget = $("#notification").data("kendoNotification");
+
+        getEmpty('@Url.Action("GetFileUrl", "Documents")' + "?fileName=" + this.dataItem($(e.currentTarget).closest("tr")).Name).done(function (result) {
+            var response = result;
+            copyToClipboard(response);
+            if(response != null || response != ""){
+                Swal.fire("Url copied to clipboard!")
+            }
+        });
+    }
+
+    function copyToClipboard(string) {
+        const tempTextArea = document.createElement('textarea');
+        tempTextArea.style = 'position: absolute; left: -1000px; top: -1000px';
+        tempTextArea.value = string;
+        document.body.appendChild(tempTextArea);
+        tempTextArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(tempTextArea);
+    }
+</script>
+<style>
+    div.k-edit-form-container {
+        width: 100% !important;
+    }
+
+    .k-window {
+        top: 150px !important;
+    }
+</style>
+<div class="page-header">
+    <div>
+        <h2 class="main-content-title tx-24 mg-b-5">@language.Get("Documents")</h2>
+
+    </div>
+
+</div>
+@(
+Html.Kendo().Grid<GamingWeb.Custom.Models.Documents.Document>()
+                .Name("gridDocuments")
+                .Columns(columns =>
+                {
+                    columns.Bound(p => p.Id).Hidden(true);
+                    columns.Bound(p => p.Name).Title(language.Get("Name"));
+                    columns.Bound(p => p.Extension).Title(language.Get("Extension"));
+                    columns.Bound(p => p.LastModifiedDate).Title(language.Get("UpdatedDate")).Format("{0:dd/MM/yyyy}");
+                    //if (departmentsAccess == (int)RoleAccessLevels.FullAccess)
+                    //{
+                    columns.Command(c =>
+                    {
+                        c.Custom("CopyToClipboard").Text(language.Get("Copy to Clipboard")).Click("getFileUrl");
+                        c.Custom("DeleteFile").Text(language.Get("Delete")).Click("deleteFile").HtmlAttributes(new { @class = "deleteButtonCustom" });
+                    }).Width(300);
+                //}
+                })
+                .ToolBar(tools =>
+                {
+                    //if (departmentsAccess == (int)RoleAccessLevels.FullAccess)
+                    //{
+                    tools.Create().Text(language.Get("Add"));
+                    //tools.Excel().Text(language.Get("ExportToExcel")).HtmlAttributes(new { style = "background-color:#19b159 !important;color:white;" });
+                //}
+                })
+                .Editable(editable => editable.Mode(GridEditMode.PopUp).TemplateName("_AddOtherDocument"))
+                .Excel(excel => excel
+                //.FileName("Documents.xlsx")
+                .Filterable(true)
+                .AllPages(true)
+                .ProxyURL(Url.Action("ExportToFile", "Home")))
+                .Pageable(pager => pager.Refresh(true).PageSizes(new[] { 10, 20, 30 }).Refresh(true))
+                .Sortable()
+                .Scrollable()
+                .Filterable()
+                .Resizable(resize => resize.Columns(true))
+                .DataSource(dataSource => dataSource
+                            .Ajax()
+                            .Events(e => e.Sync("sync_handler"))
+                            .Events(e => e.Error("onError"))
+                            .PageSize(20)
+                            .Read(read => read.Action("GetDocuments", "Documents"))
+                            .Destroy(destroy => destroy.Action("DeleteDocument", "Documents"))
+                )
+)

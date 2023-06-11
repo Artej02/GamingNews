@@ -1,0 +1,124 @@
+﻿@using Kendo.Mvc.UI
+@model GamingWeb.Custom.Models.Directory.Qualification
+@{
+    Layout = null;
+    var language = new GamingWeb.Custom.Helpers.LanguageHelper(Context);
+}
+
+<input hidden asp-for="Id" />
+<div class="row mt-2 pb-3">
+<div class="col-3 d-flex">
+    <label style="font-weight: 500; font-size: 1rem; margin: 0; align-self: center;">@language.Get("TitleSq")</label>
+</div>
+
+<div class="col">
+    @(Html.Kendo().TextBoxFor(m => m.TitleSq)
+        .HtmlAttributes(new { @class = "w-100 form-control", style = "height:40px", required = "required", validationmessage = language.Get("PleaseFillOutThisField") }))
+</div>
+</div>
+
+<div id="example" class="demo-section wide editor pt-4 pb-6">
+    <div class="pb-4">
+        <label style="font-weight: 500; font-size: 1rem; margin: 0; align-self: center;">@language.Get("ContentSq")</label>
+    </div>
+
+    @(Html.Kendo().EditorFor(m => m.DescriptionSq)
+        .HtmlAttributes(new { @class = "form-control", style = "width: 100%; height:440px ", aria_label = "editor", required = "required", validationmessage = language.Get("PleaseFillOutThisField") })
+        .StyleSheets(css => css
+        .Add(Url.Content("~/Content/web/Editor/editorStyles.css"))
+        )
+        .Tools(tools => tools
+        .Clear()
+        .Bold().Italic().Underline()
+        .JustifyLeft().JustifyCenter().JustifyRight()
+        .InsertUnorderedList().InsertOrderedList()
+        .Outdent().Indent()
+        .CreateLink().Unlink()
+        )
+        )
+</div>
+
+
+<div class="row mt-2 pb-3 pt-5">
+    <div class="col-3 d-flex">
+        <label style="font-weight: 500; font-size: 1rem; margin: 0; align-self: center;">@language.Get("TitleEn")</label>
+    </div>
+
+    <div class="col">
+        @(Html.Kendo().TextBoxFor(m => m.TitleEn)
+            .HtmlAttributes(new { @class = "w-100 form-control", style = "height:40px", required = "required", validationmessage = language.Get("PleaseFillOutThisField") }))
+        <span class="text-danger"></span>
+    </div>
+</div>
+
+<div id="example" class="demo-section wide editor pt-4 pb-6">
+    <div class="pb-4">
+        <label style="font-weight: 500; font-size: 1rem; margin: 0; align-self: center;">@language.Get("ContentEn")</label>
+    </div>
+
+    @(Html.Kendo().EditorFor(m => m.DescriptionEn)
+        .HtmlAttributes(new { @class = "form-control", style = "width: 100%; height:440px", aria_label = "editor", required = "required", validationmessage = language.Get("PleaseFillOutThisField") })
+        .StyleSheets(css => css
+        .Add(Url.Content("~/Content/web/Editor/editorStyles.css"))
+        )
+        .Tools(tools => tools
+        .Clear()
+        .Bold().Italic().Underline()
+        .JustifyLeft().JustifyCenter().JustifyRight()
+        .InsertUnorderedList().InsertOrderedList()
+        .Outdent().Indent()
+        .CreateLink().Unlink()
+
+        )
+        )
+</div>
+
+
+
+<div class="row mt-2 pb-3 pt-5">
+    <div class="col-3 d-flex">
+        <label style="font-weight: 500; font-size: 1rem; margin: 0; align-self: center;">@language.Get("TitleSr")</label>
+    </div>
+    <div class="col">
+        @(Html.Kendo().TextBoxFor(m => m.TitleSr)
+            .HtmlAttributes(new { @class = "w-100 form-control", style = "height:40px", required = "required", validationmessage = language.Get("PleaseFillOutThisField") }))
+        <span class="text-danger"></span>
+    </div>
+</div>
+
+<div id="example" class="demo-section wide editor pt-4 pb-6">
+    <div class="pb-4">
+        <label style="font-weight: 500; font-size: 1rem; margin: 0; align-self: center;">@language.Get("ContentSr")</label>
+    </div>
+
+    @(Html.Kendo().EditorFor(m => m.DescriptionSr)
+        .HtmlAttributes(new { @class = "form-control", style = "width: 100%; height:440px", aria_label = "editor", required = "required", validationmessage = language.Get("PleaseFillOutThisField") })
+        .StyleSheets(css => css
+        .Add(Url.Content("~/Content/web/Editor/editorStyles.css"))
+        )
+        .Tools(tools => tools
+        .Clear()
+        .Bold().Italic().Underline()
+        .JustifyLeft().JustifyCenter().JustifyRight()
+        .InsertUnorderedList().InsertOrderedList()
+        .Outdent().Indent()
+        .CreateLink().Unlink()
+
+        )
+        )
+</div>
+<div id="example" class="row">
+    <div class="col">
+        <label style="font-weight: 500; font-size: 1rem; margin: 0; align-self: center;">From</label>
+        <div class="row">
+            @(Html.Kendo().NumericTextBoxFor(m => m.StartYear).Format("#"))
+        </div>
+    </div>
+    
+    <div class="col">
+       <label style="font-weight: 500; font-size: 1rem; margin: 0; align-self: center;">To</label>
+       <div class="row">
+            @(Html.Kendo().NumericTextBoxFor(m => m.EndYear).Format("#"))
+       </div>
+    </div>
+</div>

@@ -1,0 +1,99 @@
+﻿@using Kendo.Mvc.UI;
+@using GamingWeb.Custom.Helpers;
+@using GamingWeb.Custom.Models;
+@{
+    var language = new GamingWeb.Custom.Helpers.LanguageHelper(Context);
+    var Authorize = new AuthorizeHelper(Context);
+
+    //int usersAccess = Authorize.GetPrivilegeLevel((int)Views.Users);
+}
+
+<script>
+    function onChangeRoleId(e) {
+        console.log(this.value());
+        if (this.value() == '') {
+            document.getElementById("authorizationSection").classList.add("d-none");
+        }
+        else {
+            document.getElementById("authorizationSection").classList.remove("d-none");
+            $('#gridRoleAccess').data('kendoGrid').dataSource.read();
+        }
+    }
+
+    function getData() {
+        return { roleId: $("#RoleId").val() }
+    }
+</script>
+
+<div class="row">
+    <div class="col-md-9 col-lg-4">
+        <div class="form-group">
+            <label class="form-label">@language.Get("Roles"):</label>
+            @(Html.Kendo().DropDownList()
+                .Name("RoleId")
+                .DataTextField("Value")
+                .DataValueField("Key")
+                .OptionLabel("--- " + @language.Get("SelectRole") + " ---")
+                .Filter(FilterType.Contains)
+                .DataSource(source =>
+                {
+                    source.Read(read =>
+                    {
+                        read.Action("GetRolesKeyValue", "Users");
+                    });
+                })
+                .Events(e => e.Change("onChangeRoleId"))
+                .Height(300)
+                .HtmlAttributes(new { style = "width: 100%; height: 40px", @class = "form-control" })
+                )
+        </div>
+    </div>
+</div>
+
+<div id="authorizationSection" class="d-none">
+    @(Html.Kendo().Grid<GamingWeb.Custom.Models.User.RoleAccess>()
+        .Name("gridRoleAccess")
+        .Height(700)
+        .Columns(columns =>
+        {
+            columns.Bound(p => p.Id).Hidden(true);
+            //columns.ForeignKey(p => p.RoleID, (System.Collections.IEnumerable)ViewBag.Roles, "Key", "Value").Title(language.Get("Role"));
+            columns.ForeignKey(p => p.ViewId, (System.Collections.IEnumerable)ViewBag.Views, "Key", "Value").Title(language.Get("View"));
+            columns.ForeignKey(p => p.AccessTypeId, (System.Collections.IEnumerable)ViewBag.AccessTypes, "Key", "Value").Title(language.Get("AccessType"));
+            @*if (usersAccess == (int)RoleAccessLevels.FullAccess)
+            {*@
+                columns.Command(c =>
+                {
+                    c.Edit().Text(language.Get("Edit")).UpdateText(language.Get("Save")).CancelText(language.Get("Cancel"));
+                });
+            //}
+        })
+        .ToolBar(tools =>
+        {
+            tools.Excel().Text(language.Get("ExportToExcel")).HtmlAttributes(new { style = "background-color:#19b159 !important;color:white;" });
+        })
+        .Excel(excel => excel
+        .FileName("Authorizations.xlsx")
+        .Filterable(true)
+        .AllPages(true)
+        .ProxyURL(Url.Action("ExportToFile", "Home")))
+        .Editable(editable => editable.Mode(GridEditMode.InLine))
+        .Pageable(pager => pager.Refresh(true).PageSizes(new[] { 10, 20, 30 }).Refresh(true))
+        .Sortable()
+        .Scrollable()
+        .Filterable()
+        .Resizable(resize => resize.Columns(true))
+        .DataSource(dataSource => dataSource
+        .Ajax()
+        .Events(e => e.Sync("sync_handler"))
+        .PageSize(20)
+        .Model(model =>
+        {
+            model.Id(p => p.Id);
+
+        })
+        .Read(read => read.Action("GetAllRoleAccess", "Users").Data("getData"))
+        .Update(update => update.Action("UpdateRoleAccess", "Users").Data("getData"))
+        )
+        )
+</div>

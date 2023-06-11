@@ -1,0 +1,4 @@
+﻿@using Kendo.Mvc.UI
+@using System.Collections
+@model System.Int32
+@(Html.Kendo().DropDownList().BindTo((IEnumerable)ViewBag.Clients).OptionLabel(" - Select Client - ").DataValueField("Key").DataTextField("Value").Name("ClientId"))

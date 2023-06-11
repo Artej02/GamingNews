@@ -1,0 +1,123 @@
+﻿@model GamingWeb.Custom.Models.Account.Login
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <!-- Meta data -->
+    <meta charset="UTF-8">
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=0'>
+    <meta content="BI" name="description">
+    <meta content="Global CT Digital Kosovo" name="author">
+    <meta name="keywords" content="Dogana" />
+
+    <!-- Title -->
+    <title>Login - Gaming News</title>
+
+    <!-- Bootstrap css -->
+    <link href="~/plugins/bootstrap/css/bootstrap.css" rel="stylesheet" />
+
+    <!-- Style css -->
+    <link href="~/css/style.css" rel="stylesheet" />
+    <link href="~/css/dark.css" rel="stylesheet" />
+    <link href="~/css/skin-modes.css" rel="stylesheet" />
+
+    <!-- Animate css -->
+    <link href="~/css/animated.css" rel="stylesheet" />
+
+    <!--Sidemenu css -->
+    <link href="~/css/sidemenu.css" rel="stylesheet">
+
+    <!-- P-scroll bar css-->
+    <link href="~/plugins/p-scrollbar/p-scrollbar.css" rel="stylesheet" />
+
+    <!---Icons css-->
+    <link href="~/css/icons.css" rel="stylesheet" />
+
+    <!---Sidebar css-->
+    <link href="~/plugins/sidebar/sidebar.css" rel="stylesheet" />
+
+    <!-- Select2 css -->
+    <link href="~/plugins/select2/select2.min.css" rel="stylesheet" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/cec5f9c18f.js" crossorigin="anonymous"></script>
+    <script src="https://use.fontawesome.com/a56aad73f2.js"></script>
+    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+</head>
+<body class="app sidebar-mini">
+    <div class="page relative error-page3">
+        <div class="row no-gutters">
+            <div class="bg-white h-100vh">
+                <div class="container">
+                    <div class="customlogin-content">
+                        <div class="p-4 pt-6">
+                            <h1 class="mb-2" style="color:#00B3ED ;"> - Gaming News</h1>
+                        </div>
+                        <form class="card-body pt-3 input-validation-error" method="post" action="Login">
+                            <div class="form-group">
+                                <label class="form-label" color:#00B3ED;>Username</label>
+                                <div class="inputWithIcon">
+                                    <i class="fas fa-user"></i>
+                                    <input class="form-control" placeholder="Username" type="text" asp-for="Username">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" color:#00B3ED;>Password</label>
+                                <div class="inputWithIcon">
+                                    <i class="fas fa-lock"></i>
+                                    <input class="form-control" placeholder="Password" type="password" asp-for="Password">
+                                </div>
+                            </div>
+
+                            <div class="submit">
+                                <button type="submit" class="btn btn-primary btn-block" style="background-color: #00B1EB !important;border-color: #00B1EB !important;">Login</button>
+                            </div>
+
+
+                            <div style="color:#f7284a; margin-top:10px;">
+                                @Html.ValidationSummary(true)
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- SCRIPTS -->
+ 
+    <!-- Jquery js-->
+    <script src="~/plugins/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap js-->
+    <script src="~/plugins/bootstrap/js/popper.min.js"></script>
+    <script src="~/plugins/bootstrap/js/bootstrap.min.js"></script>
+
+    <!--Moment js-->
+    <script src="~/plugins/moment/moment.js"></script>
+
+    <!--Sidemenu js-->
+    <script src="~/plugins/sidemenu/sidemenu.js"></script>
+
+    <!-- P-scroll js-->
+    <script src="~/plugins/p-scrollbar/p-scrollbar.js"></script>
+    <script src="~/plugins/p-scrollbar/p-scroll1.js"></script>
+
+    <!--Sidebar js-->
+    <script src="~/plugins/sidebar/sidebar.js"></script>
+    <!-- Select2 js -->
+    <script src="~/plugins/select2/select2.full.min.js"></script>
+
+    <!-- P-scroll js-->
+    <script src="~/plugins/p-scrollbar/p-scrollbar.js"></script>
+
+    <!-- INTERNAL Index js-->
+    <script src="~/js/index1.js"></script>
+    <!-- Custom js-->
+    <script src="~/js/custom.js"></script>
+
+    <!-- END OF SCRIPTS-->
+</body>
+</html>

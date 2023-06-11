@@ -1,0 +1,8 @@
+﻿@model DateTime?
+@using Kendo.Mvc.UI
+
+@(Html.Kendo().DatePickerFor(m => m)
+							.Format("yyyy")
+							.Value(new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day))
+							.Start(CalendarView.Decade)
+							.Depth(CalendarView.Decade))

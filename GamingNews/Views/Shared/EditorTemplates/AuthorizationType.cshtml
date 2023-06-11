@@ -1,0 +1,10 @@
+﻿@model string
+@using Kendo.Mvc.UI
+
+@(Html.Kendo().DropDownListFor(m => m)
+        .BindTo(ViewBag.AuthorizationTypes)
+        .Value(Model)
+        .ValuePrimitive(true)
+        .DataValueField("Value")
+        .DataTextField("Text")
+)

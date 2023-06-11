@@ -1,0 +1,523 @@
+﻿@using GamingWeb.Custom.Models.Department;
+@using Kendo.Mvc.UI;
+@using Kendo.Mvc;
+@using GamingWeb.Custom.Models;
+@using GamingWeb.Custom.Models.Schedule;
+@model GamingWeb.Custom.Models.Sector.Sector;
+@{
+    Layout = null;
+    var language = new GamingWeb.Custom.Helpers.LanguageHelper(Context);
+    var services = ViewBag.ServicesSq;
+
+    if (language.CurrentCulture == "sq-AL")
+    {
+        var departments = ViewBag.DepartmentsSq;
+        services = ViewBag.ServicesSq;
+    }
+    else if (language.CurrentCulture == "en-US")
+    {
+        var departments = ViewBag.DepartmentsEn;
+        services = ViewBag.ServicesEn;
+    }
+    else
+    {
+        var departments = ViewBag.DepartmentsSr;
+        services = ViewBag.ServicesSr;
+    }
+    int i = 0;
+}
+<script src="https://kit.fontawesome.com/cec5f9c18f.js" crossorigin="anonymous"></script>
+<script>
+    function sync_handler(e) {
+        e.sender.read();
+    }
+
+    function addServiceId() {
+        return {
+            Service: $("#ServiceId").val()
+        };
+    }
+</script>
+
+@* asp-controller="Departments" asp-action="CreateUpdateDeparment"*@
+<form>
+    <input type="hidden" asp-for="Id" id="idInput" />
+    <div class="row">
+
+        <div class="row mt-2 pb-3 pt-5">
+            <div class="col-3 d-flex">
+                <label style="font-weight: 500; font-size: 1rem; margin: 0; align-self: center;">@language.Get("SectorNameSq")</label>
+            </div>
+            <div class="col">
+                @(Html.Kendo().TextBoxFor(m => m.NameSq)
+                    .HtmlAttributes(new { @class = "w-100", style = "height:40px", id = "nameSq" }))
+                <span class="text-danger"></span>
+            </div>
+        </div>
+
+        <div id="example" class="demo-section wide editor pt-4 pb-6">
+            <div class="pb-4">
+                <label style="font-weight: 500; font-size: 1rem; margin: 0; align-self: center;">@language.Get("MissionVisionSQ")</label>
+            </div>
+            @(Html.Kendo().EditorFor(m => m.DescriptionSq)
+                .HtmlAttributes(new { style = "width: 100%; height:440px", aria_label = "editor", id = "descriptionSq" })
+                @*.StyleSheets(css => css
+            .Add(Url.Content("~/Content/web/Editor/editorStyles.css"))
+            )*@
+                .Tools(tools => tools
+                .Clear()
+                .Bold().Italic().Underline()
+                .JustifyLeft().JustifyCenter().JustifyRight()
+                .InsertUnorderedList().InsertOrderedList()
+                .Outdent().Indent()
+                .CreateLink().Unlink()
+                //.InsertImage()
+                .TableEditing()
+                .FontName()
+                .FontSize()
+                //.FontColor().BackColor()
+                )
+                )
+        </div>
+
+
+
+        <div class="row mt-2 pb-3">
+            <div class="col-3 d-flex">
+                <label style="font-weight: 500; font-size: 1rem; margin: 0; align-self: center;">@language.Get("SectorNameEn")</label>
+            </div>
+            <div class="col">
+                @(Html.Kendo().TextBoxFor(m => m.NameEn)
+                    .HtmlAttributes(new { @class = "w-100", style = "height:40px", id = "nameEn" }))
+                <span class="text-danger"></span>
+            </div>
+        </div>
+
+        <div id="example" class="demo-section wide editor pt-4 pb-6">
+            <div class="pb-4">
+                <label style="font-weight: 500; font-size: 1rem; margin: 0; align-self: center;">@language.Get("MissionVision")</label>
+            </div>
+            @(Html.Kendo().EditorFor(m => m.DescriptionEn)
+                .HtmlAttributes(new { style = "width: 100%; height:440px", aria_label = "editor", id = "descriptionEn" })
+                @*.StyleSheets(css => css
+            .Add(Url.Content("~/Content/web/Editor/editorStyles.css"))
+            )*@
+                .Tools(tools => tools
+                .Clear()
+                .Bold().Italic().Underline()
+                .JustifyLeft().JustifyCenter().JustifyRight()
+                .InsertUnorderedList().InsertOrderedList()
+                .Outdent().Indent()
+                .CreateLink().Unlink()
+                //.InsertImage()
+                .TableEditing()
+                .FontName()
+                .FontSize()
+                //.FontColor().BackColor()
+                )
+                )
+        </div>
+
+
+        <div class="row mt-2 pb-3 pt-5">
+            <div class="col-3 d-flex">
+                <label style="font-weight: 500; font-size: 1rem; margin: 0; align-self: center;">@language.Get("SectorNameSr")</label>
+            </div>
+            <div class="col">
+                @(Html.Kendo().TextBoxFor(m => m.NameSr)
+                    .HtmlAttributes(new { @class = "w-100", style = "height:40px", id = "nameSr" }))
+                <span class="text-danger"></span>
+            </div>
+        </div>
+
+        <div id="example" class="demo-section wide editor pt-4 pb-6">
+            <div class="pb-4">
+                <label style="font-weight: 500; font-size: 1rem; margin: 0; align-self: center;">@language.Get("MissionVisionSR")</label>
+            </div>
+            @(Html.Kendo().EditorFor(m => m.DescriptionSr)
+                .HtmlAttributes(new { style = "width: 100%; height:440px", aria_label = "editor", id = "descriptionSr" })
+                @*.StyleSheets(css => css
+            .Add(Url.Content("~/Content/web/Editor/editorStyles.css"))
+            )*@
+                .Tools(tools => tools
+                .Clear()
+                .Bold().Italic().Underline()
+                .JustifyLeft().JustifyCenter().JustifyRight()
+                .InsertUnorderedList().InsertOrderedList()
+                .Outdent().Indent()
+                .CreateLink().Unlink()
+                //.InsertImage()
+                .TableEditing()
+                .FontName()
+                .FontSize()
+                //.FontColor().BackColor()
+                )
+                )
+        </div>
+        <div class="row d-flex pt-4">
+            <div class="form-group col-6">
+                <div class="pb-4">
+                    <label style="font-weight: 500; font-size: 1rem; margin: 0; align-self: center;">@language.Get("Directory")</label>
+                </div>
+                @(
+                    Html.Kendo().DropDownListFor(m => m.DepartmentId)
+                    .DataTextField("Text")
+                    .DataValueField("Value")
+                    .OptionLabel("Choose Department...")
+                    //.Value("0")
+                    .HtmlAttributes(new { style = "height:4vh; width:450px; right:-0.7vw;", id = "department" })
+                    .Items(i =>
+                    {
+                        if (language.CurrentCulture == "sq-AL")
+                        {
+                            foreach (var dir in ViewBag.DepartmentsSq)
+                            {
+                                i.Add()
+                                .Text(dir.Text)
+                                .Value(dir.Value);
+                            }
+                        }
+                        else if (language.CurrentCulture == "en-US")
+                        {
+                            foreach (var dir in ViewBag.DepartmentsEn)
+                            {
+                                i.Add()
+                                .Text(dir.Text)
+                                .Value(dir.Value);
+                            }
+                        }
+                        else
+                        {
+                            foreach (var dir in ViewBag.DepartmentsSr)
+                            {
+                                i.Add()
+                                .Text(dir.Text)
+                                .Value(dir.Value);
+                            }
+                        }
+                    })
+                    )
+            </div>
+            <div class="form-group col-6">
+                <div class="pb-4">
+                    <label style="font-weight: 500; font-size: 1rem; margin: 0; align-self: center;">@language.Get("Services")</label>
+                    <br />
+                </div>
+                @(
+                    Html.Kendo().Grid<GamingWeb.Custom.Models.Services.OrgService>()
+                    .Name("servicesGrid")
+                    .Columns(c =>
+                    {
+                        c.Bound(p => p.Id).Hidden(true);
+                        c.ForeignKey(p => p.ServiceId, (System.Collections.IEnumerable)services, "Value", "Text").Title(language.Get("Services")).Width(200);
+                        c.Command(col => { col.Edit().Text(language.Get("Edit")).UpdateText(language.Get("Save")).CancelText(language.Get("Cancel")); }).Width(100);
+                        c.Command(col => col.Destroy().IconClass("k-icon k-i-delete").Text(language.Get("Delete")));
+                    })
+                    .ToolBar(tools =>
+                    {
+                        tools.Create().Text(language.Get("Add"));
+                    })
+                    .Editable(ed => ed.Mode(GridEditMode.InLine))
+                    .DataSource(dataSource => dataSource
+                    .Ajax()
+                    .Events(e => e.Sync("sync_handler"))
+                    .PageSize(20)
+                    .Model(model =>
+                    {
+                        model.Id(p => p.Id);
+                    })
+                    .Read(r => r.Action("Read_DepOrgServices", "Services", new { secId = Model.Id }))
+                    .Create(create => create.Action("CreateUpdateOrgService", "Services", new { secId = Model.Id }).Data("addServiceId"))
+                    .Update(update => update.Action("CreateUpdateOrgService", "Services", new { secId = Model.Id }))
+                    .Destroy(destroy => destroy.Action("DeleteOrgService", "Services"))
+                    )
+                    )
+            </div>
+        </div>
+        <div class="row d-flex pt-4">
+            <div class="form-group col-6">
+                <div class="pb-4">
+                    <label style="font-weight: 500; font-size: 1rem; margin: 0; align-self: center;">@language.Get("Code")</label>
+                </div>
+                @(Html.Kendo().TextBoxFor(m => m.Code)
+                    .HtmlAttributes(new { style = "border-color:#dddddd; height:4vh;", required = "required", id = "codey" })
+                    )
+            </div>
+            <div class="form-group col-6">
+                <div class="pb-4">
+                    <label style="font-weight: 500; font-size: 1rem; margin: 0; align-self: center;">@language.Get("Contact")</label>
+                </div>
+                @(Html.Kendo().TextBoxFor(m => m.Contact)
+                    .HtmlAttributes(new { style = "border-color:#dddddd; height:4vh;", required = "required", id = "contact" })
+                    )
+            </div>
+
+            <table id="myTable">
+                <tr>
+                    <th>Day From</th>
+                    <th>Day To</th>
+                    <th>Time From</th>
+                    <th>Time To</th>
+                    <th>Is Closed</th>
+
+                </tr>
+                @foreach (var schedule in ViewBag.Schedules)
+                {
+                    <tr>
+                        <td style="top: -10px; position: relative;">
+                            <input hidden id='Id@(i)' value="@schedule.Id">
+                            <i class="k-icon k-i-arrow-60-up" unselectable="on" style="right: -263px; top: 25px;"></i>
+                            <select class="form-control w-80" id="DayFrom@(i)" validationmessage="@language.Get("PleaseFillOutThisField")">
+                                @if (schedule.DayFrom == 1)
+                                {
+                                    <option selected value="1">Monday</option>
+                                }
+                                else
+                                {
+                                    <option value="1">Monday</option>
+                                }
+                                @if (schedule.DayFrom == 2)
+                                {
+                                    <option selected value="2">Tuesday </option>
+                                }
+                                else
+                                {
+                                    <option value="2">Tuesday </option>
+                                }
+                                @if (schedule.DayFrom == 3)
+                                {
+                                    <option selected value="3">Wednesday </option>
+                                }
+                                else
+                                {
+                                    <option value="3">Wednesday </option>
+                                }
+                                @if (schedule.DayFrom == 4)
+                                {
+                                    <option selected value="4">Thursday </option>
+                                }
+                                else
+                                {
+                                    <option value="4">Thursday </option>
+                                }
+                                @if (schedule.DayFrom == 5)
+                                {
+                                    <option selected value="5">Friday </option>
+                                }
+                                else
+                                {
+                                    <option value="5">Friday </option>
+                                }
+                                @if (schedule.DayFrom == 6)
+                                {
+                                    <option selected value="6">Saturday </option>
+                                }
+                                else
+                                {
+                                    <option value="6">Saturday </option>
+                                }
+                                @if (schedule.DayFrom == 7)
+                                {
+                                    <option selected value="7">Sunday </option>
+                                }
+                                else
+                                {
+                                    <option value="7">Sunday </option>
+                                }
+                            </select>
+                        </td>
+                        <td style="top: -10px; position: relative;">
+                            <i class="k-icon k-i-arrow-60-up" unselectable="on" style="right: -263px; top: 25px;"></i>
+                            <select class="form-control w-80" id="DayTo@(i)" validationmessage="@language.Get("PleaseFillOutThisField")">
+                                @if (schedule.DayTo == 1)
+                                {
+                                    <option selected value="1">Monday</option>
+                                }
+                                else
+                                {
+                                    <option value="1">Monday</option>
+                                }
+                                @if (schedule.DayTo == 2)
+                                {
+                                    <option selected value="2">Tuesday </option>
+                                }
+                                else
+                                {
+                                    <option value="2">Tuesday </option>
+                                }
+                                @if (schedule.DayTo == 3)
+                                {
+                                    <option selected value="3">Wednesday </option>
+                                }
+                                else
+                                {
+                                    <option value="3">Wednesday </option>
+                                }
+                                @if (schedule.DayTo == 4)
+                                {
+                                    <option selected value="4">Thursday </option>
+                                }
+                                else
+                                {
+                                    <option value="4">Thursday </option>
+                                }
+                                @if (schedule.DayTo == 5)
+                                {
+                                    <option selected value="5">Friday </option>
+                                }
+                                else
+                                {
+                                    <option value="5">Friday </option>
+                                }
+                                @if (schedule.DayTo == 6)
+                                {
+                                    <option selected value="6">Saturday </option>
+                                }
+                                else
+                                {
+                                    <option value="6">Saturday </option>
+                                }
+                                @if (schedule.DayTo == 7)
+                                {
+                                    <option selected value="7">Sunday </option>
+                                }
+                                else
+                                {
+                                    <option value="7">Sunday </option>
+                                }
+                            </select>
+                        </td>
+
+                        <td>
+                            <input type="time" id="TimeFrom@(i)" value="@schedule.TimeFrom" class="form-control w-80" validationmessage="@language.Get("PleaseFillOutThisField")" />
+
+                        </td>
+
+                        <td>
+                            <input type="time" id="TimeTo@(i)" value="@schedule.TimeTo" class="form-control w-80" validationmessage="@language.Get("PleaseFillOutThisField")" />
+
+                        </td>
+                        <td>
+                            <input type="checkbox" checked="@schedule.IsClosed" id="IsClosed@(i)">
+
+                        </td>
+
+                    </tr>
+                    @@i++;
+                }
+            </table>
+            <a onclick="addBtn()"
+               style="display: flex; flex-direction: column-reverse; align-items: center; justify-content: space-around;border-radius: 6px 6px; border-width: 0px; position:relative; width: 314px;background-color: sandybrown;height: 36px;margin: 21px;right: -557px; color:white;"
+               role="button">
+                Add another day
+            </a>
+            <br />
+            @(Html.Kendo().Button()
+                .Name("submitButton")
+                .HtmlAttributes(new { onclick = "onSave()", style = "width: 147px;background-color: royalblue;height: 46px;margin: 21px;right: -1190px; color:white;" })
+                .Content("Save")
+                )
+            <script>
+                var i = @i;
+
+                function addBtn() {
+                    var table = $("#myTable");
+                    table.append("<tr><td><i class='k-icon k-i-arrow-60-up' unselectable='on' style='right:-263px; top:25px;'></i>" +
+                        "<input hidden id='Id" + i + "'>" +
+                        "<select class='form-control w-80' id='DayFrom" + i + "' validationmessage='@language.Get("PleaseFillOutThisField")'>" +
+                        "<option value='1'>Monday</option>" +
+                        "<option value='2'>Tuesday</option>" +
+                        "<option value='3'>Wednesday</option>" +
+                        "<option value='4'>Thursday</option>" +
+                        "<option value='5'>Friday</option>" +
+                        "<option value='6'>Saturday</option>" +
+                        "<option value='7'>Sunday</option>" +
+                        "</select>" +
+                        "</td>" +
+                        "<td>" +
+                        "<i class='k-icon k-i-arrow-60-up' unselectable='on' style='right:-263px; top:25px;'></i>" +
+                        "<select class='form-control w-80' id='DayTo" + i + "' validationmessage='@language.Get("PleaseFillOutThisField")'>" +
+                        "<option value='1'>Monday</option>" +
+                        "<option value='2'>Tuesday</option>" +
+                        "<option value='3'>Wednesday</option>" +
+                        "<option value='4'>Thursday</option>" +
+                        "<option value='5'>Friday</option>" +
+                        "<option value='6'>Saturday</option>" +
+                        "<option value='7'>Sunday</option>" +
+                        "</select>" +
+                        "</td>" +
+                        "<td>" +
+                        "<br /><input type='time' id='TimeFrom" + i + "' class='form-control w-80' validationmessage='@language.Get("PleaseFillOutThisField")' />" +
+                        "</td>" +
+                        "<td>" +
+                        "<input type='time' id='TimeTo" + i + "' class='form-control w-80' validationmessage='@language.Get("PleaseFillOutThisField")' />" +
+                        "</td>" +
+                        "<td>" +
+                        "<br /><input type='checkbox' id='IsClosed" + i + "'>" +
+                        "</td>" +
+                        "</tr>"
+                    );
+                    i++;
+                }
+                function onSave(e) {
+                    let schedulesArray = [];
+
+                    for (var count = 0; count < i; count++) {
+                        var codevalue = false;
+                        if ($("#IsClosed" + count).is(":checked")) {
+                            codevalue = true;
+                        }
+                        schedulesArray.push({
+                            Id: $("#Id" + count).val(), DayFrom: $("#DayFrom" + count).val(), DayTo: $("#DayTo" + count).val(), TimeFrom: $("#TimeFrom" + count).val(), TimeTo: $("#TimeTo" + count).val(), IsClosed: codevalue
+                        });
+                    }
+
+
+                    let servicesArray = [];
+
+                    var serviceGrid = $("#servicesGrid").data("kendoGrid").dataSource.view();
+                    for (var index = 0; index < serviceGrid.length; index++) {
+                        servicesArray.push({
+                            Id: serviceGrid[index].Id, ServiceId: serviceGrid[index].ServiceId
+                        });
+                    }
+
+                    let dataToPost = {
+                        Id: $("#idInput").val(),
+                        NameEn: $("#nameEn").val(),
+                        NameSq: $("#nameSq").val(),
+                        NameSr: $("#nameSr").val(),
+                        DescriptionEn: $("#descriptionEn").val(),
+                        DescriptionSq: $("#descriptionSq").val(),
+                        DescriptionSr: $("#descriptionSr").val(),
+                        DepartmentId: $("#department").val(),
+                        Code: $("#codey").val(),
+                        Contact: $("#contact").val(),
+                        Schedules: schedulesArray,
+                        OrgServices: servicesArray
+                    };
+                    console.log(dataToPost);
+
+                    $.ajax({
+                        type: "POST",
+                        url: "@Url.Action("CreateUpdateSector","Sectors")",
+                        data: dataToPost,
+                        success: function (data) {
+                            if (data.success) {
+                                window.location.reload();
+                            } else {
+                                console.log("error");
+                            }
+                        }
+                    })
+                }
+            </script>
+        </div>
+    </div>
+</form>
+<style>
+    .k-i-arrow-60-down {
+        right: 0vw;
+        position: absolute;
+    }
+</style>

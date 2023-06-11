@@ -1,0 +1,8 @@
+﻿@model int?
+@using Kendo.Mvc.UI
+
+@(Html.Kendo().DropDownTreeFor(m => m)
+    .ValuePrimitive(true)
+    .BindTo((IEnumerable<DropDownTreeItemModel>)ViewBag.Sectors)
+    .Events(e => e.DataBound("onDataBound"))
+)

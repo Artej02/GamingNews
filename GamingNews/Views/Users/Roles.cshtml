@@ -1,0 +1,62 @@
+﻿@using Kendo.Mvc.UI;
+@using GamingWeb.Custom.Helpers;
+@using GamingWeb.Custom.Models;
+@{
+    var language = new GamingWeb.Custom.Helpers.LanguageHelper(Context);
+    var Authorize = new AuthorizeHelper(Context);
+
+    //int usersAccess = Authorize.GetPrivilegeLevel((int)Views.Users);
+}
+
+@(Html.Kendo().Grid<GamingWeb.Custom.Models.User.Role>()
+                .Name("gridRoles")
+                .Height(750)
+                .Columns(columns =>
+                {
+                    columns.Bound(p => p.Id).Hidden(true);
+                    columns.Bound(p => p.NameEn).Title(language.Get("Title") + " - EN");
+                    columns.Bound(p => p.NameSq).Title(language.Get("Title") + " - SQ");
+                    columns.Bound(p => p.NameSr).Title(language.Get("Title") + " - SR");
+                    @*if (usersAccess == (int)RoleAccessLevels.FullAccess)
+                    {*@
+                        columns.Command(c =>
+                        {
+                            c.Edit().Text(language.Get("Edit")).UpdateText(language.Get("Save")).CancelText(language.Get("Cancel"));
+                            c.Destroy().Text(language.Get("Delete")).HtmlAttributes(new { @class = "deleteButtonCustom" });
+                        });
+                    //}
+                })
+                .ToolBar(tools =>
+                {
+                    @*if (usersAccess == (int)RoleAccessLevels.FullAccess)
+                    {*@
+                        tools.Create().Text(language.Get("Add"));
+                    //}
+                    tools.Excel().Text(language.Get("ExportToExcel")).HtmlAttributes(new { style = "background-color:#19b159 !important;color:white;" });
+                })
+                .Excel(excel => excel
+                .FileName("Roles.xlsx")
+                .Filterable(true)
+                .AllPages(true)
+                .ProxyURL(Url.Action("ExportToFile", "Home")))
+                .Editable(editable => editable.Mode(GridEditMode.InLine))
+                .Pageable(pager => pager.Refresh(true).PageSizes(new[] { 10, 20, 30 }).Refresh(true))
+                .Sortable()
+                .Scrollable()
+                .Filterable()
+                .Resizable(resize => resize.Columns(true))
+                .DataSource(dataSource => dataSource
+                            .Ajax()
+                            .Events(e => e.Sync("sync_handler"))
+                            .PageSize(20)
+                            .Model(model =>
+                            {
+                                model.Id(p => p.Id);
+
+                            })
+                            .Read(read => read.Action("GetAllRoles", "Users"))
+                            .Update(update => update.Action("CreateUpdateRole", "Users"))
+                            .Create(create => create.Action("CreateUpdateRole", "Users"))
+                            .Destroy(destroy => destroy.Action("DeleteRole", "Users"))
+                )
+)

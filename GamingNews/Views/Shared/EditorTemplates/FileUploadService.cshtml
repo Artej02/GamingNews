@@ -1,0 +1,27 @@
+﻿@model string
+@using Kendo.Mvc.UI;
+@Html.HiddenFor(m => m)
+@Html.ValidationMessageFor(m => m)
+
+<script>
+    function success(e) {
+        var imagePath = e.response.FileUrl;
+        $("#IconPath").val(imagePath).trigger("change");
+    }
+</script>
+
+     @(Html.Kendo().Upload()
+            .Name("file")
+            .Multiple(false)
+            .Async(a => a
+                .Save("SaveFile", "Services")
+                .AutoUpload(true)
+            )
+            .Validation( validation => 
+            {
+            validation.AllowedExtensions("jpg", "png", "svg");
+            }
+            )
+            .HtmlAttributes(new {@class = "form-control", accept="image/*" })
+            .Events( e => e.Success("success"))
+            )

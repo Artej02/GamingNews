@@ -1,0 +1,127 @@
+﻿@using Kendo.Mvc.UI
+@using GamingWeb.Custom.Helpers
+@using GamingWeb.Custom.Models
+@{
+    var language = new LanguageHelper(Context);
+    //int servicesAccess = new AuthorizeHelper(Context).GetPrivilegeLevel((int)Views.Services);
+}
+
+<script>
+    function sync_handler(e) {
+        e.sender.read();
+    }
+</script>
+<script>
+    function openAdd(e) {
+        var w = $("#addCustomsService").data("kendoWindow");
+        w.refresh({
+            url: '@Url.Action("AddCSWindow", "Services")'
+        });
+        w.open();
+    }
+
+    function onClose() {
+
+        window.location.reload();
+
+    }
+
+    function openEdit(e) {
+        var w = $("#editCustomsService").data("kendoWindow");
+        w.refresh({
+            url: '@Url.Action("EditCSWindow", "Services")' + '?cserviceId=' + this.dataItem(jQuery(e.currentTarget).closest("tr")).Id
+        });
+        w.open();
+    }
+
+    function onBeforeEdit(e) {
+        $("#gridServices").data("kendoGrid").showColumn("IconPath");
+    }
+
+    function onSaveChanges(e) {
+        $("#gridServices").data("kendoGrid").hideColumn("IconPath");
+    }
+
+</script>
+
+<div class="page-header">
+    <div>
+        <h2 class="main-content-title tx-24 mg-b-5">@language.Get("Gaming News")@language.Get("Services")</h2>
+
+    </div>
+
+</div>
+@(Html.Kendo().Grid<GamingWeb.Custom.Models.Services.CustomsService>()
+                .Name("gridServices")
+                .Columns(columns =>
+                {
+                    columns.Bound(p => p.Id).Hidden(true);
+                    columns.Bound(p => p.NameSq).Title(language.Get("NameSQ"));
+                    columns.Bound(p => p.NameEn).Title(language.Get("NameEN"));
+                    columns.Bound(p => p.NameSr).Title(language.Get("NameSR"));
+                    columns.Bound(p => p.IconPath).Title(language.Get("IconPath")).Hidden(true);
+                    //if (servicesAccess == (int)RoleAccessLevels.FullAccess)
+                    //{
+                    columns.Command(c => { c.Custom("edit-cs").Text("<i class='k-icon k-i-edit'></i>" + language.Get("Edit")).Click("openEdit"); })
+                    .Width(150);
+                    columns.Command(c => c.Destroy().IconClass("k-icon k-i-delete").Text(language.Get("Delete")))
+                    .Width(150);
+                //}
+                })
+                .ToolBar(tools =>
+                {
+                    //if (servicesAccess == (int)RoleAccessLevels.FullAccess)
+                    //{
+                    tools.Custom().HtmlAttributes(new { onclick = "openAdd()" }).Text("<i class='k-icon k-i-plus'></i>" + language.Get("Add"));
+                //}
+                })
+                .Editable(editable => editable.Mode(GridEditMode.InLine))
+                .Pageable(pager => pager.Refresh(true).PageSizes(new[] { 10, 20, 30, 50 }).Refresh(true))
+                .Sortable()
+                .Scrollable()
+                .Filterable()
+                .Resizable(resize => resize.Columns(true))
+                .HtmlAttributes(new { style = "height:800px;" })
+                .DataSource(dataSource => dataSource
+                .Ajax()
+                .Events(e => e.Sync("sync_handler"))
+                .PageSize(20)
+                .Model(model =>
+                {
+                    model.Id(p => p.Id);
+
+                })
+                .Read(read => read.Action("Read_CustomsServices", "Services"))
+                .Update(update => update.Action("CreateUpdateCustomsService", "Services"))
+                .Create(create => create.Action("CreateUpdateCustomsService", "Services"))
+                .Destroy(destroy => destroy.Action("DeleteCustomsService", "Services"))
+                )
+                .Events(e => e.BeforeEdit("onBeforeEdit"))
+                .Events(e => e.Cancel("onSaveChanges"))
+
+)
+@(Html.Kendo().Window()
+    .Name("addCustomsService")
+    .Content(@<text> </text>)
+    .Draggable()
+    .Resizable()
+    .Position(p => p.Top(0).Left(0))
+    .Width("99.5vw")
+    .HtmlAttributes(new { style = "padding-right: 250px; padding-left: 100px;" })
+    .Visible(false)
+    .Modal(true)
+    .Actions(actions => actions.Close())
+    //.Events(ev => ev.Close("onClose"))
+    )
+@(Html.Kendo().Window()
+    .Name("editCustomsService")
+    .Content(@<text> </text>)
+    .Draggable()
+    .Resizable()
+    .Position(p => p.Top(0).Left(0))
+    .Width("99.5vw")
+    .HtmlAttributes(new { style = "padding-right: 250px; padding-left: 100px;" })
+    .Visible(false)
+    .Modal(true)
+    .Actions(actions => actions.Close())
+    )

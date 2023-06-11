@@ -1,0 +1,122 @@
+﻿@using Kendo.Mvc.UI
+@using GamingWeb.Custom.Helpers
+@using GamingWeb.Custom.Models
+@model GamingWeb.Custom.Models.Links.Link;
+@{
+    var language = new LanguageHelper(Context);
+    //int departmentsAccess = new AuthorizeHelper(Context).GetPrivilegeLevel((int)Views.Departments);
+}
+
+<script>
+    function sync_handler(e) {
+        e.sender.read();
+    }
+
+    function openAdd(e) {
+        var w = $("#addLink").data("kendoWindow");
+        w.refresh({
+            url: '@Url.Action("AddWindow", "Links")'
+        });
+        w.open();
+    }
+
+    function onClose() {
+
+        window.location.reload();
+
+    }
+
+    function openEdit(e) {
+        var w = $("#editLink").data("kendoWindow");
+        w.refresh({
+            url: '@Url.Action("EditWindow", "Links")' + '?linkId=' + this.dataItem(jQuery(e.currentTarget).closest("tr")).Id
+        });
+        w.open();
+    }
+</script>
+<style>
+    div.k-edit-form-container {
+        width: 100% !important;
+    }
+
+    .k-window {
+        top: 150px !important;
+    }
+</style>
+<div class="page-header">
+    <div>
+        <h2 class="main-content-title tx-24 mg-b-5">@language.Get("Links")</h2>
+
+    </div>
+
+</div>
+@(
+Html.Kendo().Grid<GamingWeb.Custom.Models.Links.Link>()
+                .Name("gridLinks")
+                .Columns(columns =>
+                {
+                    columns.Bound(p => p.Id).Hidden(true);
+                    columns.Bound(p => p.TitleSq).Title(language.Get("TitleSq"));
+                    columns.Bound(p => p.TitleEn).Title(language.Get("TitleEn"));
+                    columns.Bound(p => p.TitleSr).Title(language.Get("TitleSr"));
+                    columns.Bound(p => p.Url).Title(language.Get("Url"));
+                    //if (departmentsAccess == (int)RoleAccessLevels.FullAccess)
+                    //{
+                    columns.Command(c => { c.Custom("edit-announcement").Text("<i class='k-icon k-i-edit'></i>" + language.Get("Edit")).Click("openEdit"); })
+                    .Width(150);
+                    columns.Command(c => c.Destroy().IconClass("k-icon k-i-delete").Text(language.Get("Delete")))
+                    .Width(150);
+                //}
+                })
+                .ToolBar(tools =>
+                {
+                    //if (departmentsAccess == (int)RoleAccessLevels.FullAccess)
+                    //{
+                    tools.Custom().HtmlAttributes(new { onclick = "openAdd()" }).Text("<i class='k-icon k-i-plus'></i>" + language.Get("Add"));
+                //}
+                })
+                .Editable(editable => editable.Mode(GridEditMode.InLine))
+                .Pageable(pager => pager.Refresh(true).PageSizes(new[] { 10, 20, 30 }).Refresh(true))
+                .Sortable()
+                .Scrollable()
+                .Filterable()
+                .Resizable(resize => resize.Columns(true))
+                .HtmlAttributes(new { style = "height:800px;" })
+                .DataSource(dataSource => dataSource
+                .Ajax()
+                .Events(e => e.Sync("sync_handler"))
+                .PageSize(20)
+                .Model(model =>
+                {
+                    model.Id(p => p.Id);
+
+                })
+                .Read(read => read.Action("Read_Links", "Links"))
+                .Update(update => update.Action("CreateUpdateLink", "Links"))
+                .Create(create => create.Action("CreateUpdateLink", "Links"))
+                .Destroy(destroy => destroy.Action("DeleteLink", "Links"))
+                )
+)
+@(Html.Kendo().Window()
+    .Name("addLink")
+    .Content(@<text> </text>)
+    .Draggable()
+    .Resizable()
+    .Position(p => p.Left(600))
+    .Width(780)
+    .Visible(false)
+    .Modal(true)
+    .Actions(actions => actions.Close())
+    .Events(ev => ev.Close("onClose"))
+    )
+@(Html.Kendo().Window()
+    .Name("editLink")
+    .Content(@<text> </text>)
+    .Draggable()
+    .Resizable()
+    .Position(p => p.Left(600))
+    .Width(780)
+    .Visible(false)
+    .Modal(true)
+    .Actions(actions => actions.Close())
+    )

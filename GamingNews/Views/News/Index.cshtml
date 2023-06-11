@@ -1,0 +1,249 @@
+﻿@using GamingWeb.Custom.Models;
+@using Kendo.Mvc.UI;
+@using GamingWeb.Custom.Helpers;
+@model IEnumerable<GamingWeb.Custom.Models.News.News>
+@using Microsoft.AspNetCore.Hosting
+@inject IWebHostEnvironment webHostEnvironment
+@{
+    var language = new GamingWeb.Custom.Helpers.LanguageHelper(Context);
+    var webRootPath = new GamingWeb.Controllers.NewsController(webHostEnvironment).GetWebRootPath();
+    var curLang = language.Current();
+    //int newsAccess = new AuthorizeHelper(Context).GetPrivilegeLevel((int)Views.Announcements);
+}
+
+<script>
+    function sync_handler(e) {
+        e.sender.read();
+    }
+    function addNewArticle() {
+        var w = $("#addArticle").data("kendoWindow");
+        w.refresh({
+            url: '@Url.Action("AddArticle", "News")'
+        });
+        w.open();
+    }
+
+    function onError(e, status) {
+        var notificationWidget = $("#notification").data("kendoNotification");
+        if (e.status == "customerror") {
+            notificationWidget.show(e.errors, "error");
+        }
+        else {
+            notificationWidget.show("Generic server error.", "error");
+        }
+    }
+</script>
+
+
+<style>
+    .card {
+        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+        height: 580px;
+    }
+
+    .card-img-top {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        border-radius: 13px 13px 0px 0px;
+        height: 250px;
+    }
+
+        .card-img-top img {
+            flex-shrink: 0;
+            min-width: 100%;
+        }
+
+    .articleContent {
+        height: 180px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .card-title {
+        text-transform: none;
+        color: #3074bd;
+        margin-bottom: 0rem;
+        margin-top: 1rem;
+        padding-left: 1.5rem;
+    }
+</style>
+
+<div class="page-header">
+    <div>
+        <h2 class="main-content-title tx-24 mg-b-5">@language.Get("News")</h2>
+
+    </div>
+
+</div>
+
+@(Html.Kendo().Grid<GamingWeb.Custom.Models.News.News>()
+                .Name("gridNews")
+                .Height(800)
+                .Columns(columns =>
+                {
+                    columns.Bound(p => p.Id).Hidden(true);
+                    columns.Bound(p => p.TitleSq).Title(language.Get("TitleSq")).Width(300);
+                    columns.Bound(p => p.TitleEn).Title(language.Get("TitleEn")).Width(300);
+                    columns.Bound(p => p.TitleSr).Title(language.Get("TitleSr")).Width(300);
+                    columns.Bound(p => p.ReleaseDate).Title(language.Get("ReleaseDate")).Format("{0:dd/MM/yyyy}").Width(300);
+                    //if (newsAccess == (int)RoleAccessLevels.FullAccess)
+                    //{
+                        columns.Command(c =>
+                        {
+                            c.Custom("Edit").Text("<i class='k-icon k-i-edit'></i>"+language.Get("Edit")).Click("updateArticle");
+                            c.Custom("Delete").Text("<i class='k-icon k-i-delete'></i>"+language.Get("Delete")).Click("deleteArticle").HtmlAttributes(new { @class = "deleteButtonCustom" });
+                        }).Width(300);
+                    //}
+                })
+                .ToolBar(tools =>
+                {
+                    //if (newsAccess == (int)RoleAccessLevels.FullAccess)
+                    //{
+                        //tools.Create().Text(language.Get("Add"));
+                        tools.Custom().Text("<i class='k-icon k-i-plus'></i>"+language.Get("Add")).HtmlAttributes(new { @class = "w-20", onclick = "addNewArticle();" });
+                    //}
+                })
+                .Editable(editable => editable.Mode(GridEditMode.InLine))
+                .Pageable(pager => pager.Refresh(true).PageSizes(new[] { 10, 20, 30 }).Refresh(true))
+                .Sortable()
+                .Scrollable()
+                .Filterable()
+                .Resizable(resize => resize.Columns(true))
+                .DataSource(dataSource => dataSource
+                            .Ajax()
+                            .Events(e => e.Sync("sync_handler"))
+                            .Events(e => e.Error("onError"))
+                            .PageSize(20)
+                            .Model(model =>
+                            {
+                                model.Id(p => p.Id);
+                                model.Field(p => p.FileUrl).Editable(true);
+                            })
+                            .Read(read => read.Action("Read_News", "News"))
+                )
+)
+@*<div class="row d-flex justify-content-between">
+        <h2 class="col-3 text-muted">@language.Get("RecentArticles")</h2>
+        @if (newsAccess == (int)RoleAccessLevels.FullAccess)
+        {
+            <div class="col-3 btn btn-info" style="align-self: center;" onclick="addNewArticle()"><i class="fa-solid fa-circle-plus"></i> @language.Get("AddNewArticle")</div>
+        }
+    </div>
+
+    <div class="row mt-5">
+        @foreach (var article in Model)
+        {
+            <div class="col-4 p-2" id="removeCard">
+                <div class="card d-flex justify-content-center">
+
+                    <div class="card-img-top">
+                        <img src="@article.Photo" alt="Image" />
+                    </div>
+
+                    <div class="card-title">
+                        @if (curLang == "sq-AL")
+                            @article.TitleSq
+                            else if (curLang == "sr-SR")
+                                @article.TitleSr
+                                else
+                                    @article.TitleEn
+                    </div>
+                    <div class="card-body">
+                        <div class="articleContent">
+                            @if (curLang == "sq-AL")
+                                @Html.Raw(article.ContentSq)
+                                else if (curLang == "sr-SR")
+                                    @Html.Raw(article.ContentSr)
+                                    else
+                                        @Html.Raw(article.ContentEn)
+                        </div>
+
+                        @if(newsAccess == (int)RoleAccessLevels.FullAccess)
+                        {
+                            <div class="mt-5 d-flex justify-content-around">
+                                <input type="submit" class="btn btn-primary w-50 mx-2" onclick=updateArticle("@article.ID") value="@language.Get("Edit")" />
+                                <input type="submit" class="btn btn-danger w-50 mx-2" onclick=deleteArticle("@article.ID") value="@language.Get("Delete")" />
+                            </div>
+                        }
+                    </div>
+
+                </div>
+            </div>
+        }
+    </div>*@
+
+
+<script>
+    function deleteArticle(e) {
+        var id = this.dataItem($(e.currentTarget).closest("tr")).Id;
+        Swal.fire({
+            title: 'Dëshironi të fshini artikullin?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '@language.Get("Yes")',
+            cancelButtonText: '@language.Get("Cancel")'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                getEmpty('@Url.Action("Delete", "News")' + "?Id=" + id).done(function (response) {
+                    if (response.result == true) {
+                        console.log("True");
+                        location.reload();
+                    }
+                    else {
+                        console.log("False");
+                        location.reload();
+                    }
+            })
+            }
+        })
+    }
+
+    function updateArticle(e) {
+        var id = this.dataItem($(e.currentTarget).closest("tr")).Id;
+        Swal.fire({
+      title: 'Dëshironi të ndryshoni artikullin?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: '@language.Get("Yes")',
+      cancelButtonText: '@language.Get("Cancel")'
+   }).then((result) => {
+    if (result.isConfirmed) {
+      var w = $("#editArticle").data("kendoWindow");
+        w.refresh({
+            url: '@Url.Action("EditArticle", "News")' + '?articleId=' + this.dataItem(jQuery(e.currentTarget).closest("tr")).Id
+        });
+        w.open();
+    }
+   })
+   }
+</script>
+@(Html.Kendo().Window()
+    .Name("addArticle")
+    .Content(@<text> </text>)
+    .Draggable()
+    .Resizable()
+    .Position(p => p.Top(0).Left(170))
+    .Width(1515)
+    .Visible(false)
+    .Modal(true)
+    .Actions(actions => actions.Close())
+    //.Events(ev => ev.Close("onClose"))
+    )
+@(Html.Kendo().Window()
+    .Name("editArticle")
+    .Content(@<text> </text>)
+    .Draggable()
+    .Resizable()
+    .Position(p => p.Top(0).Left(170))
+    .Width(1515)
+    .Visible(false)
+    .Modal(true)
+    .Actions(actions => actions.Close())
+    )

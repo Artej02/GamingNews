@@ -1,0 +1,102 @@
+﻿@using Kendo.Mvc.UI;
+@using GamingWeb.Custom.Models;
+@using GamingWeb.Custom.Helpers;
+@{
+    var language = new GamingWeb.Custom.Helpers.LanguageHelper(Context);
+    var Authorize = new AuthorizeHelper(Context);
+
+    //int usersAccess = Authorize.GetPrivilegeLevel((int)Views.Users);
+}
+
+<script>
+    function changePassword(e) {
+        getEmpty('@Url.Action("ChangePassword","Users")' + '?userID=' + this.dataItem($(e.currentTarget).closest("tr")).Id).done(function (result) {
+            let changePasswordWindow = $("#changePasswordWindow").data("kendoWindow");
+            changePasswordWindow.content(result).open();
+        });
+    }
+
+    function sync_handler(e) {
+        e.sender.read();
+    }
+
+    function onError() {
+        console.log("error");
+    }
+
+</script>
+
+
+@(Html.Kendo().Window()
+    .Name("changePasswordWindow")
+    .Title(language.Get("ChangePassword"))
+    .Content(@<text> </text>)
+    .Draggable()
+    .Resizable()
+    .Position(p => p.Left(650).Top(300))
+    .Visible(false)
+    .Modal(true)
+    .Width(600)
+    .HtmlAttributes(new { style = "background-color:rgba(0, 179, 237, 0.0233)" })
+    .Actions(actions => actions.Pin().Minimize().Maximize().Close())
+)
+
+    @(Html.Kendo().Grid<GamingWeb.Custom.Models.User.User>()
+        .Name("gridUsers")
+        .Height(750)
+        .Columns(columns =>
+        {
+            columns.Bound(p => p.Id).Hidden(true).Width(200);
+            columns.Bound(p => p.Name).Title(language.Get("Name")).Width(200);
+            columns.Bound(p => p.Surname).Title(language.Get("LastName")).Width(200);
+            columns.Bound(p => p.Username).Title(language.Get("Username")).Width(200);
+            //columns.ForeignKey(p => p.RoleId, (System.Collections.IEnumerable)ViewBag.Roles, "Key", "Value").Title(language.Get("Role")).Width(200);
+            //columns.ForeignKey(p => p.CategoryId, (System.Collections.IEnumerable)ViewBag.Categories, "Key", "Value").Title(language.Get("Institution")).Width(150);
+
+            @*if (usersAccess == (int)RoleAccessLevels.FullAccess)
+        {*@
+            columns.Command(c =>
+    {
+                c.Edit().Text(language.Get("Edit")).UpdateText(language.Get("Save")).CancelText(language.Get("Cancel"));
+                c.Destroy().Text(language.Get("Delete")).HtmlAttributes(new { @class = "deleteButtonCustom" });
+            }).Width(250);
+            columns.Command(command =>
+            {
+                command.Custom("changePassword").Click("changePassword").Text(language.Get("ChangePassword")).IconClass("k-icon k-i-password");
+            }).Width(200).HtmlAttributes(new { @class = "text-center" });
+        }).Width(1500)
+        .ToolBar(tools =>
+        {
+            @*if (usersAccess == (int)RoleAccessLevels.FullAccess)
+    {*@
+            tools.Create().Text(language.Get("Add"));
+
+            tools.Excel().Text(language.Get("ExportToExcel")).HtmlAttributes(new { style = "background-color:#19b159 !important;color:white;" });
+        })
+        .Excel(excel => excel
+        .FileName("Users.xlsx")
+        .Filterable(true)
+        .AllPages(true)
+        .ProxyURL(Url.Action("ExportToFile", "Home")))
+        .Editable(editable => editable.Mode(GridEditMode.InLine))
+        .Pageable(pager => pager.Refresh(true).PageSizes(new[] { 10, 20, 30 }).Refresh(true))
+        .Sortable()
+        .Scrollable()
+        .Filterable()
+        .Resizable(resize => resize.Columns(true))
+        .DataSource(dataSource => dataSource
+        .Ajax()
+        .Events(e => e.Sync("sync_handler"))
+        .Events(e => e.Error("onError"))
+        .PageSize(20)
+        .Model(model =>
+        {
+            model.Id(p => p.Id);
+
+        })
+        .Read(read => read.Action("GetAllUsers", "Users"))
+        .Update(update => update.Action("CreateUpdateUser", "Users"))
+        .Create(create => create.Action("CreateUpdateUser", "Users"))
+        .Destroy(destroy => destroy.Action("DeleteUser", "Users"))
+        )
+        )

@@ -1,0 +1,27 @@
+﻿@model string
+@using Kendo.Mvc.UI
+
+@Html.HiddenFor(m => m)
+@Html.ValidationMessageFor(m => m)
+
+<script>
+    console.log("test")
+    function success(e) {
+        var imagePath = e.response.FileUrl;
+
+
+        $("#FileUrl").val(imagePath).trigger("change");
+    }
+
+
+</script>
+
+@(Html.Kendo().Upload()
+    .Name("file")
+    .Multiple(false)
+    .Async(a => a
+        .Save("SaveVerdict", "BordDoc")
+        .AutoUpload(true)
+    )
+    .Events( e => e.Success("success"))
+ )

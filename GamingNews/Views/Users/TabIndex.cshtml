@@ -1,0 +1,62 @@
+﻿@using Kendo.Mvc.UI;
+
+@{
+    var language = new GamingWeb.Custom.Helpers.LanguageHelper(Context);
+}
+
+<script>
+    function sync_handler(e) {
+        e.sender.read();
+    }
+
+    function onShow(e) {
+        if (e.sender.getNotifications().length == 1) {
+            var element = e.element.parent(),
+                eWidth = element.width(),
+                eHeight = element.height(),
+                wWidth = $(window).width(),
+                wHeight = $(window).height(),
+                newTop, newLeft;
+            newLeft = Math.floor(wWidth / 2 - eWidth / 2);
+            newTop = 100;
+            e.element.parent().css({ top: newTop, left: newLeft });
+        }
+    }
+
+    function onError(e, status) {
+        var notificationWidget = $("#notification").data("kendoNotification");
+        if (e.status == "customerror") {
+            notificationWidget.show(e.errors, "error");
+        }
+        else {
+            notificationWidget.show("Generic server error.", "error");
+        }
+    }
+</script>
+
+@(Html.Kendo().Notification()
+    .Name("notification")
+    .AutoHideAfter(4000)
+    .Button(true)
+    .Events(e => e.Show("onShow"))
+    .HideOnClick(true)
+     .Position(p =>
+     {
+         p.Pinned(true);
+     })
+)
+
+@(Html.Kendo().TabStrip()
+    .Name("tabStrip")
+    .Scrollable(true)
+    .SelectedIndex(0)
+    .Animation(animation =>
+    animation.Open(effect =>
+        effect.Fade(FadeDirection.In)))
+    .Items(tabstrip =>
+    {
+        tabstrip.Add().Text(language.Get("Users")).Content(@<text> @await Html.PartialAsync("~/Views/Users/Users.cshtml") </text>);
+        tabstrip.Add().Text(language.Get("Roles")).Content(@<text> @await Html.PartialAsync("~/Views/Users/Roles.cshtml") </text>);
+        tabstrip.Add().Text(language.Get("Authorizations")).Content(@<text> @await Html.PartialAsync("~/Views/Users/RoleAccess.cshtml") </text>);
+    })
+)
