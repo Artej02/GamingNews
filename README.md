@@ -1,1 +1,1 @@
-# DoganaCMS
+# GamingNews
