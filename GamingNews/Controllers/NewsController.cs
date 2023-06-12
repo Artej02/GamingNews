@@ -13,9 +13,11 @@ using System.Web;
 using ImageProcessor;
 using ImageProcessor.Plugins.WebP.Imaging.Formats;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GamingWeb.Controllers
 {
+    [Authorize]
     public class NewsController : Controller
     {
         private readonly IWebHostEnvironment _webHostEnvironment;

@@ -9,9 +9,11 @@ using System.IO;
 using System.Threading.Tasks;
 using GamingWeb.Custom.Models.Announcements;
 using GamingWeb.Custom.Models.Reports;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GamingWeb.Controllers
 {
+    [Authorize]
     public class ReportsController : Controller
     {
 

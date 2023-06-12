@@ -9,9 +9,11 @@ using System.Threading.Tasks;
 using System;
 using GamingWeb.Custom.Models;
 using GamingWeb.Custom.Models.Links;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GamingWeb.Controllers
 {
+    [Authorize]
     public class LinksController : Controller
     {
         public IActionResult Index()

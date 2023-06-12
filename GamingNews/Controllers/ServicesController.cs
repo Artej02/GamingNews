@@ -15,9 +15,11 @@ using GamingWeb.Custom.Models.Department;
 using GamingWeb.Custom.Models.User;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using GamingWeb.Custom.Models.Announcements;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GamingWeb.Controllers
 {
+    [Authorize]
     public class ServicesController : Controller
     {
         public async Task<IActionResult> Index()

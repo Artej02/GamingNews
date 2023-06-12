@@ -2,11 +2,13 @@
 using GamingWeb.Custom.Helpers;
 using GamingWeb.Custom.Models;
 using GamingWeb.Custom.Models.Footer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
 namespace GamingWeb.Controllers
 {
+    [Authorize]
     public class FooterController : Controller
     {
 

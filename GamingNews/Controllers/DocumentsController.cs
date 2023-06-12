@@ -9,9 +9,11 @@ using System.IO;
 using System.Threading.Tasks;
 using System;
 using GamingWeb.Custom.Models.Documents;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GamingWeb.Controllers
 {
+    [Authorize]
     public class DocumentsController : Controller
     {
         private string rootFolder = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("SharedFolders")["RootFolder"];

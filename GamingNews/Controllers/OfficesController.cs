@@ -8,6 +8,7 @@ using GamingWeb.Custom.Models.Schedule;
 using GamingWeb.Custom.Models.Sector;
 using GamingWeb.Custom.Models.Services;
 using Kendo.Mvc.UI;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
@@ -19,6 +20,7 @@ using System.Web;
 
 namespace GamingWeb.Controllers
 {
+    [Authorize]
     public class OfficesController : Controller
     {
         ScheduleCreator scheduler = new ScheduleCreator();

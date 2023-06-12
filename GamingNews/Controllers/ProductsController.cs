@@ -3,11 +3,13 @@ using GamingWeb.Custom.Helpers;
 using GamingWeb.Custom.Models.Product;
 using GamingWeb.Custom.Models.User;
 using Kendo.Mvc.UI;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
 namespace GamingWeb.Controllers
 {
+    [Authorize]
     public class ProductsController : Controller
     {
         public IActionResult Index()
