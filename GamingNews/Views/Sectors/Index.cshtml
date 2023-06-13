@@ -74,7 +74,6 @@ Html.Kendo().Grid<GamingWeb.Custom.Models.Sector.Sector>()
                     columns.Bound(p => p.NameSq).Title(language.Get("SectorNameSq"));
                     columns.Bound(p => p.NameSr).Title(language.Get("SectorNameSr"));
                     columns.Bound(p => p.Code).Title(language.Get("Code"));
-                    columns.ForeignKey(p => p.DepartmentId, (System.Collections.IEnumerable)department, "Value", "Text").Title(language.Get("Department"));
                     //columns.ForeignKey(p => p.CategoryId, (System.Collections.IEnumerable)ViewBag.Categories, "Key", "Value").Title(language.Get("Institution"));
                     //if (departmentsAccess == (int)RoleAccessLevels.FullAccess)
                     //{
