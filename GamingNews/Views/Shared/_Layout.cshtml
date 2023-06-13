@@ -136,7 +136,7 @@
                         </div>
                     </div>
                     <div class="nav" style="padding-bottom:100px;">
-                        <div class="sb-sidenav-menu-heading">@*@language.Get("Menus")*@</div>
+                        <div class="sb-sidenav-menu-heading"></div>
                         <a class="nav-link @(ViewBag.Current == "Home" ? "active" : "")" asp-controller="Home" asp-action="Index">
                             <div class="sb-nav-link-icon"><i class="fas fa-home"></i></div>
                             @language.Get("Home")
@@ -170,17 +170,6 @@
                             <div class="sb-nav-link-icon"><i class="fa-solid fa-list"></i></div>
                             @language.Get("Services")
                         </a>
-                        @*<a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts2" aria-expanded="false" aria-controls="collapseLayouts2">
-                            <div class="sb-nav-link-icon"><i class="fa-solid fa-circle-info"></i></div>
-                            Information
-                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                        </a>
-                        <div class="collapse @(ViewBag.SubMenu == "Information" ? "show" : "")" id="collapseLayouts2" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                            <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link @(ViewBag.History == true ? "active" : "")" asp-controller="AboutUs" asp-action="History">History</a>
-                                <a class="nav-link @(ViewBag.Vision == true ? "active" : "")" asp-controller="AboutUs" asp-action="Vision">Vision</a>
-                            </nav>
-                        </div>*@
                         <a class="nav-link @(ViewBag.Documents == true ? "active" : "")" asp-controller="Documents" asp-action="Index">
                             <div class="sb-nav-link-icon"><i class="fa-solid fa-file"></i></div>
                             @language.Get("Documents")

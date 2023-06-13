@@ -13,7 +13,6 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace GamingWeb.Controllers
 {
-    //[Authorize]
     public class UsersController : Controller
     {
         #region Views
