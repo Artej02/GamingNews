@@ -75,21 +75,14 @@ Html.Kendo().Grid<GamingWeb.Custom.Models.Office.Office>()
                     columns.Bound(p => p.NameSr).Title(language.Get("SectorNameSr"));
                     columns.Bound(p => p.Code).Title(language.Get("Code"));
                     columns.ForeignKey(p => p.SectorId, (System.Collections.IEnumerable)sector, "Value", "Text").Title(language.Get("Sector"));
-                    //columns.ForeignKey(p => p.CategoryId, (System.Collections.IEnumerable)ViewBag.Categories, "Key", "Value").Title(language.Get("Institution"));
-                    //if (departmentsAccess == (int)RoleAccessLevels.FullAccess)
-                    //{
                     columns.Command(c => { c.Custom("edit-office").Text("<i class='k-icon k-i-edit'></i>" + language.Get("Edit")).Click("openEdit"); })
                     .Width(150);
                     columns.Command(c => c.Destroy().IconClass("k-icon k-i-delete").Text(language.Get("Delete")))
                     .Width(150);
-                //}
                 })
                 .ToolBar(tools =>
                 {
-                    //if (departmentsAccess == (int)RoleAccessLevels.FullAccess)
-                    //{
                     tools.Custom().HtmlAttributes(new { onclick = "openAdd()" }).Text("<i class='k-icon k-i-plus'></i>" + language.Get("Add"));
-                //}
                 })
                 .Editable(editable => editable.Mode(GridEditMode.InLine))
                 .Pageable(pager => pager.Refresh(true).PageSizes(new[] { 10, 20, 30 }).Refresh(true))
