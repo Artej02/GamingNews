@@ -18,9 +18,6 @@ namespace GamingWeb.Controllers
 
         public async Task<IActionResult> Index()
         {
-            //int usersAccess = new AuthorizeHelper(HttpContext).GetPrivilegeLevel((int)Views.Services);
-            //if (usersAccess == (int)RoleAccessLevels.AccessDenied)
-            //return RedirectToAction("NotAuthorized", "NotAuthorized");
 
             var language = new LanguageHelper(HttpContext);
             ViewBag.Announcements = true;
@@ -76,7 +73,7 @@ namespace GamingWeb.Controllers
                 if (createUpdateResult.HasAffected)
                 {
                     HasAffected = true;
-                    //var afterLogData = (await new Query().SelectSingle<Service>($"SELECT * FROM Services where Id = {service.Id}")).Result;
+                    var afterLogData = (await new Query().SelectSingle<Announcement>($"SELECT * FROM Services where Id = {announcement.Id}")).Result;
                     //var serializedObject = new ChangeLogHelper().SerializeObject(beforeLogData, afterLogData, (int)ChangeLogTable.Service, UserId, (int)ChangeLogAction.Update);
                     //var addLog = new ChangeLogHelper().AddLog(serializedObject);
                 }
