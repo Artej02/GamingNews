@@ -74,9 +74,6 @@ Html.Kendo().Grid<GamingWeb.Custom.Models.Sector.Sector>()
                     columns.Bound(p => p.NameSq).Title(language.Get("SectorNameSq"));
                     columns.Bound(p => p.NameSr).Title(language.Get("SectorNameSr"));
                     columns.Bound(p => p.Code).Title(language.Get("Code"));
-                    //columns.ForeignKey(p => p.CategoryId, (System.Collections.IEnumerable)ViewBag.Categories, "Key", "Value").Title(language.Get("Institution"));
-                    //if (departmentsAccess == (int)RoleAccessLevels.FullAccess)
-                    //{
                     columns.Command(c => { c.Custom("edit-sector").Text("<i class='k-icon k-i-edit'></i>" + language.Get("Edit")).Click("openEdit"); })
                     .Width(150);
                     columns.Command(c => c.Destroy().IconClass("k-icon k-i-delete").Text(language.Get("Delete")))
@@ -85,8 +82,6 @@ Html.Kendo().Grid<GamingWeb.Custom.Models.Sector.Sector>()
                 })
                 .ToolBar(tools =>
                 {
-                    //if (departmentsAccess == (int)RoleAccessLevels.FullAccess)
-                    //{
                     tools.Custom().HtmlAttributes(new { onclick = "openAdd()" }).Text("<i class='k-icon k-i-plus'></i>" + language.Get("Add"));
                 //}
                 })
