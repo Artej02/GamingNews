@@ -41,18 +41,12 @@
                     columns.Bound(p => p.NameSr).Title(language.Get("NameSR"));
                     columns.Bound(p => p.Url).Title(language.Get("Url"));
                     columns.Bound(p => p.IconPath).Title(language.Get("IconPath")).Hidden(true);
-                    //if (servicesAccess == (int)RoleAccessLevels.FullAccess)
-                    //{
                         columns.Command(c => { c.Edit().Text(language.Get("Edit")).UpdateText(language.Get("Save")).CancelText(language.Get("Cancel")); })
                         .Width(250);
-                    //}
                 })
                 .ToolBar(tools =>
                 {
-                    //if (servicesAccess == (int)RoleAccessLevels.FullAccess)
-                    //{
                         tools.Create().Text(language.Get("Add"));
-                    //}
                 })
                 .Editable(editable => editable.Mode(GridEditMode.InLine))
                 .Pageable(pager => pager.Refresh(true).PageSizes(new[] { 10, 20, 30, 50 }).Refresh(true))
