@@ -222,9 +222,6 @@
   <data name="Copy to Clipboard" xml:space="preserve">
     <value>Copy to Clipboard</value>
   </data>
-  <data name="Customs Services" xml:space="preserve">
-    <value>Customs Services</value>
-  </data>
   <data name="Date" xml:space="preserve">
     <value>Date</value>
   </data>
@@ -254,21 +251,6 @@
   </data>
   <data name="DescriptionSr" xml:space="preserve">
     <value>Description Srb</value>
-  </data>
-  <data name="Directories" xml:space="preserve">
-    <value>Directories</value>
-  </data>
-  <data name="Directory" xml:space="preserve">
-    <value>Directory</value>
-  </data>
-  <data name="DirectoryNameEn" xml:space="preserve">
-    <value>Directory Name</value>
-  </data>
-  <data name="DirectoryNameSq" xml:space="preserve">
-    <value>Directory Name Alb</value>
-  </data>
-  <data name="DirectoryNameSr" xml:space="preserve">
-    <value>Directory Name Srb</value>
   </data>
   <data name="DivisionContent" xml:space="preserve">
     <value>Division Content Albanian</value>
