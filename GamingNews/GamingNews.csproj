@@ -30,7 +30,6 @@
   <ItemGroup>
     <Folder Include="wwwroot\ArticleImages\" />
     <Folder Include="wwwroot\AnnouncementFiles\" />
-    <Folder Include="wwwroot\DirectorPic\" />
     <Folder Include="wwwroot\CServiceIcon\" />
     <Folder Include="wwwroot\DocumentFiles\" />
     <Folder Include="wwwroot\LinkFiles\" />
