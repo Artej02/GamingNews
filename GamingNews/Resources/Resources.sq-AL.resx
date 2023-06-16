@@ -231,9 +231,6 @@
   <data name="Copy to Clipboard" xml:space="preserve">
     <value>Kopjo në Clipboard</value>
   </data>
-  <data name="Customs Services" xml:space="preserve">
-    <value>Shërbimet e Doganës</value>
-  </data>
   <data name="Date" xml:space="preserve">
     <value>Data</value>
   </data>
@@ -383,36 +380,6 @@
   </data>
   <data name="LastName" xml:space="preserve">
     <value>Mbiemri</value>
-  </data>
-  <data name="Legislation" xml:space="preserve">
-    <value>Legjilsacioni</value>
-  </data>
-  <data name="LegislationSubType" xml:space="preserve">
-    <value>Nëntipet e legjislacionit</value>
-  </data>
-  <data name="LegislationSubTypeEN" xml:space="preserve">
-    <value>Nën tipi</value>
-  </data>
-  <data name="LegislationSubTypes" xml:space="preserve">
-    <value>Nën tipet e legjislacionit</value>
-  </data>
-  <data name="LegislationSubTypeSQ" xml:space="preserve">
-    <value>Nën tipi Shqip</value>
-  </data>
-  <data name="LegislationSubTypeSR" xml:space="preserve">
-    <value>Nën tipi Sërbisht</value>
-  </data>
-  <data name="LegislationTypeEN" xml:space="preserve">
-    <value>Tipi i legjislacionit Anglisht</value>
-  </data>
-  <data name="LegislationTypes" xml:space="preserve">
-    <value>Tipet e Legjislazionit</value>
-  </data>
-  <data name="LegislationTypeSQ" xml:space="preserve">
-    <value>Tipi i legjislacionit</value>
-  </data>
-  <data name="LegislationTypeSR" xml:space="preserve">
-    <value>Tipi i legjislacionit Sërbisht</value>
   </data>
   <data name="Link" xml:space="preserve">
     <value>Linku</value>
