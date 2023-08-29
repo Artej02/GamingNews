@@ -1,4 +1,4 @@
-﻿@using GamingWeb.Custom.Models.Department;
+﻿@*@using GamingWeb.Custom.Models.Department;
 @using Kendo.Mvc.UI;
 @using Kendo.Mvc;
 @using GamingWeb.Custom.Models;
@@ -39,7 +39,7 @@
     }
 </script>
 
-@* asp-controller="Departments" asp-action="CreateUpdateDeparment"*@
+@* asp-controller="Departments" asp-action="CreateUpdateDeparment"
 <form>
     <input type="hidden" asp-for="Id" id="idInput" />
     <div class="row">
@@ -63,7 +63,7 @@
                 .HtmlAttributes(new { style = "width: 100%; height:440px", aria_label = "editor", id = "descriptionSq" })
                 @*.StyleSheets(css => css
             .Add(Url.Content("~/Content/web/Editor/editorStyles.css"))
-            )*@
+            )
                 .Tools(tools => tools
                 .Clear()
                 .Bold().Italic().Underline()
@@ -101,7 +101,7 @@
                 .HtmlAttributes(new { style = "width: 100%; height:440px", aria_label = "editor", id = "descriptionEn" })
                 @*.StyleSheets(css => css
             .Add(Url.Content("~/Content/web/Editor/editorStyles.css"))
-            )*@
+            )
                 .Tools(tools => tools
                 .Clear()
                 .Bold().Italic().Underline()
@@ -138,7 +138,7 @@
                 .HtmlAttributes(new { style = "width: 100%; height:440px", aria_label = "editor", id = "descriptionSr" })
                 @*.StyleSheets(css => css
             .Add(Url.Content("~/Content/web/Editor/editorStyles.css"))
-            )*@
+            )
                 .Tools(tools => tools
                 .Clear()
                 .Bold().Italic().Underline()
@@ -520,4 +520,4 @@
         right: 0vw;
         position: absolute;
     }
-</style>
+</style>*@

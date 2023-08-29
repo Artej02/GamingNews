@@ -1,4 +1,4 @@
-﻿@using Kendo.Mvc.UI;
+﻿@*@using Kendo.Mvc.UI;
 @using GamingWeb.Custom.Models;
 @model GamingWeb.Custom.Models.Services.CustomsService;
 @{
@@ -17,7 +17,7 @@
 
         $("#Photo").val(filePath).trigger("change");
     }
-</script>*@
+</script>
 
 <script>
     function success(e) {
@@ -146,7 +146,7 @@
 
         <div class="form-group col-6">
             <label for="formGroupExampleInput2">@language.Get("File")</label>
-            @*@(Html.Kendo().Upload()
+            @(Html.Kendo().Upload()
             .Name("FileUrl")
             .Multiple(false)
             .Async(a => a
@@ -156,7 +156,7 @@
             .Multiple(true)
             .HtmlAttributes(new {@class = "form-control", accept = ".jpg,.png",  validationmessage = language.Get("PleaseFillOutThisField") })
             .Events( e => e.Success("success"))
-            )*@
+            )
             @(Html.Kendo().Upload()
                 .Name("IconPath")
                 .Async(a => a
@@ -202,4 +202,4 @@
     .swal2-container {
         z-index: 10004;
     }
-</style>
+</style>*@
