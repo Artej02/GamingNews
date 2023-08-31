@@ -23,9 +23,19 @@ namespace GamingWeb.Controllers
             var curLang = new LanguageHelper(HttpContext).Current();
             ViewBag.Roles = (await new Query().Select<KeyValue>($"Select * from GetRolesKeyValue(@Lang)", new { @Lang = curLang })).Result;
             ViewBag.AccessTypes = GetRoleAccessKeyValue();
-            ViewBag.Views = (await new Query().Select<KeyValue>($"Select Id as [Key], [Name] as [Value] from [View]")).Result;  
-            
-            return View();
+            ViewBag.Views = (await new Query().Select<KeyValue>($"Select Id as [Key], [Name] as [Value] from [View]")).Result;
+
+            var userId = new AuthorizeHelper(HttpContext).GetUserID();
+            var user = (await new Query().SelectSingle<User>($"Select * from User where Id={userId}")).Result;
+
+            if (user.RoleId == 2)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
         #endregion
 
