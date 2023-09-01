@@ -1,0 +1,38 @@
+/* Login Failed Message Styles */
+.login-failed-container {
+    max-width: 300px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    text-align: center;
+}
+
+.login-failed-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #ff6347; /* Tomato Red */
+}
+
+.login-failed-message {
+    font-size: 16px;
+    margin-top: 10px;
+    color: #333;
+}
+
+.login-failed-link {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #ff6347; /* Tomato Red */
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.login-failed-link:hover {
+    background-color: #d13232; /* Darker Tomato Red on hover */
+}
