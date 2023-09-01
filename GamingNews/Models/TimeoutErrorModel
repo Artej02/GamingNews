@@ -1,0 +1,20 @@
+public class TimeoutErrorModel
+{
+    public string ErrorCode { get; set; }
+    public string ErrorMessage { get; set; }
+    public DateTime Timestamp { get; set; }
+
+    public TimeoutErrorModel()
+    {
+        ErrorCode = "TIMEOUT";
+        ErrorMessage = "Request timed out";
+        Timestamp = DateTime.UtcNow;
+    }
+
+    public TimeoutErrorModel(string customErrorMessage)
+    {
+        ErrorCode = "TIMEOUT";
+        ErrorMessage = customErrorMessage;
+        Timestamp = DateTime.UtcNow;
+    }
+}
