@@ -1,3 +1,5 @@
+@using Kendo.Mvc.UI;
+@using Kendo.Mvc;
 @using GamingWeb.Custom.Models;
 @using GamingWeb.Custom.Models.Schedule;
 @model GamingWeb.Custom.Models.Office.Office;
@@ -228,8 +230,67 @@
                 Add another day
             </a>
             <br />
+            @(Html.Kendo().Button()
+                .Name("submitButton")
+                .HtmlAttributes(new { onclick = "onSave()", style = "width: 147px;background-color: royalblue;height: 46px;margin: 21px;right: -1190px; color:white;" })
+                .Content("Save")
+                )
             <script>
+
+                var i = 1;
+
+                function addBtn() {
+                    var table = $("#myTable");
+                    table.append("<tr><td><i class='k-icon k-i-arrow-60-up' unselectable='on' style='right:-263px; top:25px;'></i>" +
+                        "<input hidden id='Id" + i + "'>" +
+                        "<select class='form-control w-80' id='DayFrom" + i + "' validationmessage='@language.Get("PleaseFillOutThisField")'>" +
+                        "<option value='1'>Monday</option>" +
+                        "<option value='2'>Tuesday</option>" +
+                        "<option value='3'>Wednesday</option>" +
+                        "<option value='4'>Thursday</option>" +
+                        "<option value='5'>Friday</option>" +
+                        "<option value='6'>Saturday</option>" +
+                        "<option value='7'>Sunday</option>" +
+                        "</select>" +
+                        "</td>" +
+                        "<td>" +
+                        "<i class='k-icon k-i-arrow-60-up' unselectable='on' style='right:-263px; top:25px;'></i>" +
+                        "<select class='form-control w-80' id='DayTo" + i + "' validationmessage='@language.Get("PleaseFillOutThisField")'>" +
+                        "<option value='1'>Monday</option>" +
+                        "<option value='2'>Tuesday</option>" +
+                        "<option value='3'>Wednesday</option>" +
+                        "<option value='4'>Thursday</option>" +
+                        "<option value='5'>Friday</option>" +
+                        "<option value='6'>Saturday</option>" +
+                        "<option value='7'>Sunday</option>" +
+                        "</select>" +
+                        "</td>" +
+                        "<td>" +
+                        "<br /><input type='time' id='TimeFrom" + i + "' class='form-control w-80' validationmessage='@language.Get("PleaseFillOutThisField")' />" +
+                        "</td>" +
+                        "<td>" +
+                        "<input type='time' id='TimeTo" + i + "' class='form-control w-80' validationmessage='@language.Get("PleaseFillOutThisField")' />" +
+                        "</td>" +
+                        "<td>" +
+                        "<br /><input type='checkbox' id='IsClosed" + i + "'>" +
+                        "</td>" +
+                        "</tr>"
+                    );
+                    i++;
                 }
+
+                function onSave(e) {
+                    let schedulesArray = [];
+
+                    for (var count = 0; count < i; count++) {
+                        var codevalue = false;
+                        if ($("#IsClosed" + count).is(":checked")) {
+                            codevalue = true;
+                        }
+                        schedulesArray.push({
+                            Id: $("#Id" + count).val(), DayFrom: $("#DayFrom" + count).val(), DayTo: $("#DayTo" + count).val(), TimeFrom: $("#TimeFrom" + count).val(), TimeTo: $("#TimeTo" + count).val(), IsClosed: codevalue
+                        });
+                    }
 
                     let servicesArray = [];
 
@@ -239,6 +300,19 @@
                             Id: serviceGrid[index].Id, ServiceId: serviceGrid[index].ServiceId
                         });
                     }
+
+                    let dataToPost = {
+                        Id: $("#idInput").val(),
+                        NameEn: $("#nameEn").val(),
+                        NameSq: $("#nameSq").val(),
+                        NameSr: $("#nameSr").val(),
+                        DescriptionEn: $("#descriptionEn").val(),
+                        DescriptionSq: $("#descriptionSq").val(),
+                        DescriptionSr: $("#descriptionSr").val(),
+                        Code: $("#codey").val(),
+                        Contact: $("#contact").val(),
+                        Schedules: schedulesArray
+                    };
 
                     $.ajax({
                         type: "POST",
