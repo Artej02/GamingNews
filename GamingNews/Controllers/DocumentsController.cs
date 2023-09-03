@@ -1,4 +1,4 @@
-﻿using GamingWeb.Custom.Helpers;
+using GamingWeb.Custom.Helpers;
 using GamingWeb.Custom.Models;
 using Kendo.Mvc.UI;
 using Microsoft.AspNetCore.Http;
@@ -16,7 +16,8 @@ namespace GamingWeb.Controllers
     [Authorize]
     public class DocumentsController : Controller
     {
-        private string rootFolder = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("SharedFolders")["RootFolder"];
+        private string rootFolder = "C:\\Users\\User\\Desktop\\GamingNews\\GamingNews\\wwwroot\\DocumentFiles";
+        //new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("SharedFolders")["RootFolder"];
         private string accessFolder = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("SharedFolders")["AccessFolder"];
 
         public IActionResult Index()
@@ -91,19 +92,6 @@ namespace GamingWeb.Controllers
         [HttpPost]
         public async Task<ActionResult> SaveFile(IFormFile file)
         {
-            var filepath = file.FileName;
-            if (file.Length > 0)
-            {
-                var uploads = Path.Combine("wwwroot\\DocumentFiles\\");
-                var filePath = Path.Combine(uploads, file.FileName);
-
-                using (var stream = System.IO.File.Create(filePath))
-                {
-                    await file.CopyToAsync(stream);
-                }
-                return Json(true);
-            }
-            return Json(true);
         }
     }
 }
