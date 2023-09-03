@@ -8,8 +8,8 @@ import Footer from '../Common/Footer';
   // import blackB from "C:/Users/Admin/Desktop/glass/goblen/src/components/Products/images/blackB.jpg";
   // import roomB from "C:/Users/Admin/Desktop/glass/goblen/src/components/Products/images/roomB.jpg"
   // import creme from "C:/Users/Admin/Desktop/glass/goblen/src/components/Products/images/cremeFrame.jpg";
-const Products = () => {
-  const products = [
+const News = () => {
+  const news = [
     {
       title: 'Framed Line Mirror',
       description: 'Framed Mirror engraved with black square lines. Choose your custom frame.',
@@ -65,21 +65,21 @@ const Products = () => {
       <div className="py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            {products.map((product, index) => (
+            {news.map((news, index) => (
               <div
                 key={index}
                 className="bg-white overflow-hidden shadow-xl sm:rounded-lg transform transition-transform duration-300 hover:scale-105"
               >
                 <div className="aspect-w-1 aspect-h-1">
                   <img
-                    src={product.image}
-                    alt={product.title}
+                    src={news.image}
+                    alt={news``.title}
                     className="object-cover object-center w-full h-full"
                   />
                 </div>
                 <div className="p-6">
-                  <h2 className="text-2xl font-semibold mb-2">{product.title}</h2>
-                  <p className="text-gray-600 mb-4">{product.description}</p>
+                  <h2 className="text-2xl font-semibold mb-2">{news.title}</h2>
+                  <p className="text-gray-600 mb-4">{news.description}</p>
                 </div>
               </div>
             ))}
@@ -92,4 +92,4 @@ const Products = () => {
 };
 
 
-export default Products;
+export default News;
