@@ -1,0 +1,12 @@
+/* For mobile devices */
+@media (max-width: 767px) {
+    .location-iframe {
+      width: 100%; /* Reduce width by 50% */
+      height: 300px; /* Adjust the height value as needed */
+    }
+    #start{
+        margin-top: -25px;
+    }
+  }
+  
+  
