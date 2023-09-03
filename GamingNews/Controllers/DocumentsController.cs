@@ -92,6 +92,19 @@ namespace GamingWeb.Controllers
         [HttpPost]
         public async Task<ActionResult> SaveFile(IFormFile file)
         {
+            var filepath = file.FileName;
+            if (file.Length > 0)
+            {
+                var uploads = Path.Combine("wwwroot\\DocumentFiles\\");
+                var filePath = Path.Combine(uploads, file.FileName);
+
+                using (var stream = System.IO.File.Create(filePath))
+                {
+                    await file.CopyToAsync(stream);
+                }
+                return Json(true);
+            }
+            return Json(true);
         }
     }
 }
