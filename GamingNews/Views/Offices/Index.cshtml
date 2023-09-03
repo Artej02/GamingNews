@@ -1,24 +1,9 @@
-﻿@using Kendo.Mvc.UI
 @using GamingWeb.Custom.Helpers
 @using GamingWeb.Custom.Models
 @model GamingWeb.Custom.Models.Office.Office;
 @{
     var language = new LanguageHelper(Context);
     //int departmentsAccess = new AuthorizeHelper(Context).GetPrivilegeLevel((int)Views.Departments);
-    List<SelectListItem> sector;
-    if (language.CurrentCulture == "sq-AL")
-    {
-        sector = ViewBag.SectorsSq;
-
-    }
-    else if (language.CurrentCulture == "en-US")
-    {
-        sector = ViewBag.SectorsEn;
-    }
-    else
-    {
-        sector = ViewBag.SectorsSr;
-    }
 }
 
 <script>
@@ -64,66 +49,3 @@
     </div>
 
 </div>
-@(
-Html.Kendo().Grid<GamingWeb.Custom.Models.Office.Office>()
-                .Name("gridCategories" + Guid.NewGuid().ToString())
-                .Columns(columns =>
-                {
-                    columns.Bound(p => p.Id).Hidden(true);
-                    columns.Bound(p => p.NameEn).Title(language.Get("SectorNameEn"));
-                    columns.Bound(p => p.NameSq).Title(language.Get("SectorNameSq"));
-                    columns.Bound(p => p.NameSr).Title(language.Get("SectorNameSr"));
-                    columns.Bound(p => p.Code).Title(language.Get("Code"));
-                    columns.ForeignKey(p => p.SectorId, (System.Collections.IEnumerable)sector, "Value", "Text").Title(language.Get("Sector"));
-                    columns.Command(c => { c.Custom("edit-office").Text("<i class='k-icon k-i-edit'></i>" + language.Get("Edit")).Click("openEdit"); })
-                    .Width(150);
-                    columns.Command(c => c.Destroy().IconClass("k-icon k-i-delete").Text(language.Get("Delete")))
-                    .Width(150);
-                })
-                .ToolBar(tools =>
-                {
-                    tools.Custom().HtmlAttributes(new { onclick = "openAdd()" }).Text("<i class='k-icon k-i-plus'></i>" + language.Get("Add"));
-                })
-                .Editable(editable => editable.Mode(GridEditMode.InLine))
-                .Pageable(pager => pager.Refresh(true).PageSizes(new[] { 10, 20, 30 }).Refresh(true))
-                .Sortable()
-                .Scrollable()
-                .Filterable()
-                .Resizable(resize => resize.Columns(true))
-                .HtmlAttributes(new { style = "height:800px;" })
-                .DataSource(dataSource => dataSource
-                .Ajax()
-                .Events(e => e.Sync("sync_handler"))
-                .PageSize(20)
-                .Model(model =>
-                {
-                    model.Id(p => p.Id);
-
-                })
-                .Read(read => read.Action("Read_Offices", "Offices"))
-                .Update(update => update.Action("CreateUpdateOffice", "Offices"))
-                .Create(create => create.Action("CreateUpdateOffice", "Offices"))
-                .Destroy(destroy => destroy.Action("DeleteOffice", "Offices"))
-                )
-)
-@(Html.Kendo().Window()
-    .Name("addOffice")
-    .Content(@<text> </text>)
-    .Draggable()
-    .Resizable()
-    .Position(p => p.Top(0))
-    .Visible(false)
-    .Modal(true)
-    .Actions(actions => actions.Close())
-    .Events(ev => ev.Close("onClose"))
-    )
-@(Html.Kendo().Window()
-    .Name("editOffice")
-    .Content(@<text> </text>)
-    .Draggable()
-    .Resizable()
-    .Position(p => p.Top(0))
-    .Visible(false)
-    .Modal(true)
-    .Actions(actions => actions.Close())
-    )
