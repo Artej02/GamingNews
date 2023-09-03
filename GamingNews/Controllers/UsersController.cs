@@ -26,9 +26,9 @@ namespace GamingWeb.Controllers
             ViewBag.Views = (await new Query().Select<KeyValue>($"Select Id as [Key], [Name] as [Value] from [View]")).Result;
 
             var userId = new AuthorizeHelper(HttpContext).GetUserID();
-            var user = (await new Query().SelectSingle<User>($"Select * from User where Id={userId}")).Result;
+            var roleId = (await new Query().SelectSingle<int>($"Select RoleId from [User] where Id={userId}")).Result;
 
-            if (user.RoleId == 2)
+            if (roleId == 1)
             {
                 return View();
             }
