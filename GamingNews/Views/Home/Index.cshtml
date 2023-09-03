@@ -1,35 +1,96 @@
-﻿@using Kendo.Mvc.UI;
+@using Kendo.Mvc.UI;
 @{
+    var language = new GamingWeb.Custom.Helpers.LanguageHelper(Context);
     ViewData["Title"] = "Home Page";
 }
 
+<style>
+    .iconParent {
+        display: flex;
+    }
+
+    .iconStyle {
+        font-size: 30px;
+    }
+
+    .card-title {
+        text-transform: none;
+    }
+
+    .clickableCard {
+        cursor: pointer;
+    }
+
+    .card {
+        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    }
+
+    div a {
+        transition: color 0.4s ease
+    }
+
+    .card-link:hover {
+        background: #424e79;
+        color: white;
+        transition: all 0.5s ease;
+    }
+</style>
+
+<!--Row-->
 <div class="row">
     <div class="col-xl-12 col-md-12 col-lg-12">
         <div class="row">
-            <div class="col-xl-3 col-lg-6 col-md-12">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-10">
-                                <div class="mt-0 text-start">
-                                    <span class="fs-14 font-weight-semibold">Test CI/CD</span>
-                                    <div class="form-group">
-                                        <label class="form-label">Year</label>
-                                        @(Html.Kendo().DatePicker()
-			                            .Format("yyyy")
-			                            .Name("YearIndex")
-			                            .Value(new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day))
-			                            .Start(CalendarView.Decade)
-			                            .Depth(CalendarView.Decade)
-			                            .HtmlAttributes(new { style = "width: 100%; height: 40px" }))
+            <div class="col-xl-12 col-lg-6 col-md-12">
+                <div style="background: #5AAA95; border-radius: 1rem; padding: 1rem;">
+                    <div class="row mb-5">
+                        <span class="fs-30 font-weight-semibold" style="color: white;"><i class="fa-solid fa-chart-bar"></i> &nbsp; @language.Get("StatsForThisMonth")</span>
+                    </div>
+
+                    <a href="/News" target="_blank">
+                        <div class="card card-body card-link mt-3">
+                            <div class="row">
+                                <div class="col-10">
+                                    <div class="mt-0 text-start">
+                                        <span class="fs-14 font-weight-semibold">@language.Get("News")</span>
+                                        <h3 class="mb-0 pt-3 mb-0">@ViewBag.NewsCount - @language.Get("NewsWerePublishedThisMonth")</h3>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-2 text-center iconParent">
-                                <i class="fas fa-address-book align-self-center iconStyle"></i>
+                                <div class="col-2 text-center iconParent">
+                                    <i class="fa-solid fa-newspaper align-self-center iconStyle"></i>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </a>
+                    <a href="/Announcements" target="_blank">
+                        <div class="card card-body card-link mt-3">
+                            <div class="row">
+                                <div class="col-10">
+                                    <div class="mt-0 text-start">
+                                        <span class="fs-14 font-weight-semibold">@language.Get("Announcements")</span>
+                                        <h3 class="mb-0 pt-3 mb-0">@ViewBag.AnnouncementsCount - @language.Get("AnnouncementsWerePublishedThisMonth")</h3>
+                                    </div>
+                                </div>
+                                <div class="col-2 text-center iconParent">
+                                    <i class="fa-solid fa-bullhorn align-self-center iconStyle"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="/Documents" target="_blank">
+                        <div class="card card-body card-link mt-3">
+                            <div class="row">
+                                <div class="col-10">
+                                    <div class="mt-0 text-start">
+                                        <span class="fs-14 font-weight-semibold">@language.Get("Documents")</span>
+                                        <h3 class="mb-0 pt-3 mb-0">@ViewBag.DocumentsCount - @language.Get("DocumentsWerePublishedThisMonth")</h3>
+                                    </div>
+                                </div>
+                                <div class="col-2 text-center iconParent">
+                                    <i class="fa-solid fa-file align-self-center iconStyle"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
                 </div>
             </div>
         </div>
