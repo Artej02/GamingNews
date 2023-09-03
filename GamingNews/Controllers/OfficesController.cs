@@ -40,7 +40,7 @@ namespace GamingWeb.Controllers
         public async Task<IActionResult> EditWindow(int officeId)
         {
             Office office = (await new Query().SelectSingle<Office>($"select * from Office where Id={officeId}")).Result;
-            ViewBag.Schedules = (await new Query().Select<Schedule>($"Select * FROM Schedule WHERE SectorId={officeId}")).Result.ToList();
+            ViewBag.Schedules = (await new Query().Select<Schedule>($"Select * FROM Schedule WHERE OfficeId={officeId}")).Result.ToList();
             //await GetSectors();
             //await GetServices();
 
@@ -120,7 +120,7 @@ namespace GamingWeb.Controllers
                         {
                             if (schedule.Id.HasValue)
                             {
-                                //await scheduler.CreateSchedule(schedule, null, null, null, office.Id);
+                                 scheduler.CreateSchedule(schedule, null, null, null, office.Id);
                             }
                         }
                     }
@@ -163,16 +163,16 @@ namespace GamingWeb.Controllers
                 if (createUpdateResult != 0)
                 {
                     //Create Schedules
-                    //if (office.Schedules != null)
-                    //{
-                    //    foreach (var schedule in office.Schedules)
-                    //    {
-                    //        if (schedule.Id.HasValue)
-                    //        {
-                    //            await scheduler.CreateSchedule(schedule, null, null, null, createUpdateResult);
-                    //        }
-                    //    }
-                    //}
+                    if (office.Schedules != null)
+                    {
+                        foreach (var schedule in office.Schedules)
+                        {
+                            if (schedule.Id.HasValue)
+                            {
+                                 scheduler.CreateSchedule(schedule, null, null, null, createUpdateResult);
+                            }
+                        }
+                    }
                     //Create Services
                     //if (office.OrgServices != null)
                     //{
@@ -209,16 +209,16 @@ namespace GamingWeb.Controllers
                 @Id = office.Id
 
             });
-            //if (deleteDepartmentResult.HasAffected)
-            //{
-            //    await scheduler.DeleteSchedulesForOrg(null, null, null, office.Id);
+            if (deleteDepartmentResult.HasAffected)
+            {
+                  scheduler.DeleteSchedule(office.Id);
             //    await servicer.DeleteServicesForOrg(null, null, null, office.Id);
 
             //    HasAffected = true;
 
             //    var serializedObject = new ChangeLogHelper().SerializeObject(beforeLogData, null, (int)ChangeLogTable.Offices, currentUserID, (int)ChangeLogAction.Delete);
             //    var addLog = new ChangeLogHelper().AddLog(serializedObject);
-            //}
+            }
 
             return Json(HasAffected);
         }

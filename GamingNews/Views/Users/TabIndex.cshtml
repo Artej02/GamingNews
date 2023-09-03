@@ -57,6 +57,5 @@
     {
         tabstrip.Add().Text(language.Get("Users")).Content(@<text> @await Html.PartialAsync("~/Views/Users/Users.cshtml") </text>);
         tabstrip.Add().Text(language.Get("Roles")).Content(@<text> @await Html.PartialAsync("~/Views/Users/Roles.cshtml") </text>);
-        tabstrip.Add().Text(language.Get("Authorizations")).Content(@<text> @await Html.PartialAsync("~/Views/Users/RoleAccess.cshtml") </text>);
     })
 )

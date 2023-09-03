@@ -3,6 +3,7 @@ using GamingWeb.Custom.Models;
 using GamingWeb.Custom.Models.Office;
 using GamingWeb.Custom.Models.Schedule;
 using GamingWeb.Custom.Models.Sector;
+using Microsoft.AspNetCore.Mvc;
 
 namespace GamingWeb.Custom.Helpers
 {
@@ -48,11 +49,7 @@ namespace GamingWeb.Custom.Helpers
 
         public async void DeleteSchedule(int? Id)
         {
-            var deleteResult = await new Query().Execute("CreateUpdateDeleteSchedule @CRUDOperation,@Id", new
-            {
-                @CRUDOperation = CRUDOperation.Delete,
-                @Id = Id
-            });
+            var deleteResult = await new Query().Execute($"Delete from Schedule where OfficeId={Id}");
         }
     }
 }

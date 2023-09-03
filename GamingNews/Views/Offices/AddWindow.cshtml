@@ -292,15 +292,6 @@
                         });
                     }
 
-                    let servicesArray = [];
-
-                    var serviceGrid = $("#servicesGrid").data("kendoGrid").dataSource.view();
-                    for (var index = 0; index < serviceGrid.length; index++) {
-                        servicesArray.push({
-                            Id: serviceGrid[index].Id, ServiceId: serviceGrid[index].ServiceId
-                        });
-                    }
-
                     let dataToPost = {
                         Id: $("#idInput").val(),
                         NameEn: $("#nameEn").val(),

@@ -150,7 +150,7 @@
                         <div class="collapse @(ViewBag.SubMenu == "Organisation" ? "show" : "")" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
                                 <a class="nav-link @(ViewBag.Offices == true ? "active" : "")" asp-controller="Offices" asp-action="Index">@language.Get("Office")</a>
-                                <a class="nav-link @(ViewBag.Services == true ? "active" : "")" asp-controller="Services" asp-action="Index">Developer Services</a>
+                                <a class="nav-link @(ViewBag.Services == true ? "active" : "")" asp-controller="Services" asp-action="Index">@language.Get("Services")</a>
                             </nav>
                         </div>
                         <a class="nav-link @(ViewBag.Reports == true ? "active" : "")" asp-controller="Reports" asp-action="Index">
