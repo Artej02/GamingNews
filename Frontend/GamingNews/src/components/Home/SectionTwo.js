@@ -1,5 +1,5 @@
 import React from 'react';
-import worker from "C:/Users/Admin/Desktop/Frontend/GamingNews/src/images/worker.jpg";
+//import worker from "C:/Users/PULSE Electronics.DESKTOP-OT4PSQN/Desktop/Frontend/GamingNews/src/images/worker.jpg";
 import Navigation from './Navigation';
 
 const TeamMember = ({ name, role, imageSrc, socialLinks }) => (
@@ -28,7 +28,7 @@ const SectionTwo = () => {
           {
                name: 'Annamorea Tiara Nixha',
                role: 'CEO',
-                imageSrc: worker,
+                //imageSrc: worker,
                socialLinks: [
                     { icon: 'Facebook', url: 'https://www.facebook.com/johndoe' },
                     { icon: 'Twitter', url: 'https://twitter.com/johndoe' },
@@ -37,7 +37,7 @@ const SectionTwo = () => {
           {
                name: 'Eldi Vuniqi',
                role: 'Chief Editor',
-               imageSrc: worker,
+               //imageSrc: worker,
                socialLinks: [
                     { icon: 'LinkedIn', url: 'https://www.linkedin.com/janesmith' },
                     { icon: 'Instagram', url: 'https://www.instagram.com/janesmith' },
@@ -46,7 +46,7 @@ const SectionTwo = () => {
           {
                name: 'Altin Sadiku',
                role: 'Chief Products Manager',
-               imageSrc: worker,
+               //imageSrc: worker,
                socialLinks: [
                     { icon: 'GitHub', url: 'https://github.com/alexjohnson' },
                     { icon: 'Globe', url: 'https://www.alexjohnson.com' }, // Using a different icon
@@ -55,7 +55,7 @@ const SectionTwo = () => {
           {
                name: 'Art Ejupi',
                role: 'CTO',
-               imageSrc: worker,
+               //imageSrc: worker,
                socialLinks: [
                     { icon: 'GitHub', url: 'https://github.com/alexjohnson' },
                     { icon: 'Globe', url: 'https://www.alexjohnson.com' }, // Using a different icon
@@ -64,7 +64,7 @@ const SectionTwo = () => {
           {
                name: 'Mark Thorn',
                role: 'Head Writer',
-               imageSrc: worker,
+               //imageSrc: worker,
                socialLinks: [
                     { icon: 'GitHub', url: 'https://github.com/alexjohnson' },
                     { icon: 'Globe', url: 'https://www.alexjohnson.com' }, // Using a different icon
@@ -73,7 +73,7 @@ const SectionTwo = () => {
           {
                name: 'Alex Johnson',
                role: 'NY TIMES #1 Gaming Top Writer 2023',
-               imageSrc: worker,
+               //imageSrc: worker,
                socialLinks: [
                     { icon: 'GitHub', url: 'https://github.com/alexjohnson' },
                     { icon: 'Globe', url: 'https://www.alexjohnson.com' }, // Using a different icon

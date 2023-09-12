@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Routes, Route as RRoute } from 'react-router';
 import Header from './components/Common/Header';
 import Home from './components/Home/Home';
-import Products from './components/Products/Products';
+import News from './components/Products/News';
 import Location from './components/Location/Location';
 import Contact from './components/Contact/Contact';
 
@@ -15,7 +15,7 @@ const App = () => {
         <div className="pt-6"> {/* Create space below fixed header */}
           <Routes>
             <RRoute path="/" element={<Home />} />
-            <RRoute path="/products" element={<Products />} />
+            <RRoute path="/news" element={<News />} />
             <RRoute path="/location" element={<Location />} />
             <RRoute path="/contact" element={<Contact />} />
           </Routes>
